@@ -28,19 +28,14 @@ cp grafana.ini                 $BUILD/etc/grafana/grafana.ini
 cp prometheus_data_source.json $BUILD/etc/grafana/prometheus_data_source.json
 cp linkerd-viz-dashboard.json  $BUILD/etc/grafana/dashboards/linkerd-viz-dashboard.json
 
-docker pull $PROM_TAG
-docker rm -vf prom-build >/dev/null 2>&1 || true
-docker run --name=prom-build $PROM_TAG &
+PROM_BUILD=$(docker create $PROM_TAG)
 
-echo "waiting for $PROM_TAG to boot"
-sleep 5
+docker cp $PROM_BUILD:/bin/prometheus                    $BUILD/bin/prometheus
+docker cp $PROM_BUILD:/bin/promtool                      $BUILD/bin/promtool
+docker cp $PROM_BUILD:/etc/prometheus/console_libraries/ $BUILD/etc/prometheus/console_libraries
+docker cp $PROM_BUILD:/etc/prometheus/consoles/          $BUILD/etc/prometheus/consoles
 
-docker cp prom-build:/bin/prometheus                    $BUILD/bin/prometheus
-docker cp prom-build:/bin/promtool                      $BUILD/bin/promtool
-docker cp prom-build:/etc/prometheus/console_libraries/ $BUILD/etc/prometheus/console_libraries
-docker cp prom-build:/etc/prometheus/consoles/          $BUILD/etc/prometheus/consoles
-
-docker rm -vf prom-build >/dev/null 2>&1 || true
+docker rm -vf $PROM_BUILD >/dev/null 2>&1 || true
 
 docker build --tag=$VIZ_TAG $BUILD
 docker push $VIZ_TAG
