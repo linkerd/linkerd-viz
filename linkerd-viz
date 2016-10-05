@@ -1,0 +1,35 @@
+#!/bin/sh
+#
+# Boot prometheus and grafana
+#
+# usage:
+# ./linkerd-viz [platform]
+#
+# platform can be one of: [dcos, k8s]
+
+PLATFORM="${1:-dcos}"
+PUBLIC_PORT="${PUBLIC_PORT:-3000}"
+STATS_PORT="${STATS_PORT:-9090}"
+
+# on first run write env vars into config files
+# TODO: auto-gen these in place
+sed -itmp "s@PUBLIC_PORT@$PUBLIC_PORT@" /etc/grafana/grafana.ini
+sed -itmp "s@STATS_PORT@$STATS_PORT@" /etc/grafana/prometheus_data_source.json
+
+# boot grafana
+/run.sh &
+
+until $(curl -sfo /dev/null http://localhost:$PUBLIC_PORT/api/datasources); do
+  # wait for grafana to boot
+  sleep 1
+done
+curl -vX POST -d @/etc/grafana/prometheus_data_source.json -H "Content-Type: application/json" http://localhost:$PUBLIC_PORT/api/datasources
+curl -vX PUT -d"{\"theme\": \"dark\"}" -H "Content-Type: application/json" http://localhost:$PUBLIC_PORT/api/org/preferences
+
+# boot prometheus
+/bin/prometheus \
+  -config.file=/etc/prometheus/prometheus-$PLATFORM.yml \
+  -storage.local.path=/prometheus \
+  -web.console.libraries=/etc/prometheus/console_libraries \
+  -web.console.templates=/etc/prometheus/consoles \
+  -web.listen-address=:$STATS_PORT
