@@ -23,7 +23,7 @@ mkdir -p $BUILD/etc/grafana/dashboards
 
 cp Dockerfile                  $BUILD/Dockerfile
 cp linkerd-viz                 $BUILD/linkerd-viz
-cp prometheus-*.yml            $BUILD/etc/prometheus/
+cp */prometheus-*.yml          $BUILD/etc/prometheus/
 cp grafana.ini                 $BUILD/etc/grafana/grafana.ini
 cp prometheus_data_source.json $BUILD/etc/grafana/prometheus_data_source.json
 cp linkerd-viz-dashboard.json  $BUILD/etc/grafana/dashboards/linkerd-viz-dashboard.json
@@ -39,3 +39,5 @@ docker rm -vf $PROM_BUILD >/dev/null 2>&1 || true
 
 docker build --tag=$VIZ_TAG $BUILD
 docker push $VIZ_TAG
+
+rm -rf $BUILD

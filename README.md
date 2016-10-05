@@ -32,7 +32,7 @@ docker run -p 3000:3000 -p 9090:9090 buoyantio/linkerd-viz
 ## Kubernetes Deploy
 
 ```bash
-kubectl apply -f linkerd-viz-k8s.yml
+kubectl apply -f k8s/linkerd-viz.yml
 ```
 
 View dashboard
@@ -44,7 +44,7 @@ open http://$(kubectl get svc linkerd-viz -o jsonpath="{.status.loadBalancer.ing
 ## DC/OS Deploy
 
 ```bash
-dcos marathon app add linkerd-viz-dcos.json
+dcos marathon app add dcos/linkerd-viz.json
 ```
 
 View dashboard
