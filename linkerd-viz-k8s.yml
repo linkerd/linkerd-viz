@@ -31,7 +31,7 @@ spec:
           containerPort: 9090
 
       - name: kubectl
-        image: buoyantio/kubectl:1.4.0
+        image: buoyantio/kubectl:v1.4.0
         args:
         - "proxy"
         - "-p"
