@@ -2,7 +2,7 @@
 
 Dead simple monitoring for [linkerd](https://linkerd.io).
 
-![linkerd-viz screenshot](https://linkerd.io/images/dcos/linkerd-viz-screenshot.png "linkerd-viz screenshot")
+![linkerd-viz screenshot](https://linkerd.io/images/linkerd-viz.png "linkerd-viz screenshot")
 
 linkerd-viz is a monitoring application based on
 [Prometheus](https://prometheus.io/) and [Grafana](http://grafana.org/),
