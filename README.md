@@ -43,6 +43,14 @@ open http://$(kubectl get svc linkerd-viz -o jsonpath="{.status.loadBalancer.ing
 
 ## DC/OS Deploy
 
+Install the official linkerd-viz DC/OS Universe package:
+
+```bash
+dcos package install linkerd-viz
+```
+
+Custom installation:
+
 ```bash
 dcos marathon app add dcos/linkerd-viz.json
 ```
