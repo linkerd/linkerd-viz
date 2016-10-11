@@ -11,22 +11,51 @@ PLATFORM="${1:-dcos}"
 PUBLIC_PORT="${PUBLIC_PORT:-3000}"
 STATS_PORT="${STATS_PORT:-9090}"
 
-# on first run write env vars into config files
-# TODO: auto-gen these in place
-sed -itmp "s@PUBLIC_PORT@$PUBLIC_PORT@" /etc/grafana/grafana.ini
-sed -itmp "s@STATS_PORT@$STATS_PORT@" /etc/grafana/prometheus_data_source.json
+#
+# init grafana
+#
 
-# boot grafana
+grafana_ini=$(cat <<EOF
+[auth.anonymous]
+enabled = true
+org_role = Admin
+
+[dashboards.json]
+enabled = true
+path = /etc/grafana/dashboards
+
+[server]
+http_port = $PUBLIC_PORT
+EOF
+)
+
+printf "%s\n" "$grafana_ini" > /etc/grafana/grafana.ini
+
 /run.sh &
+
+prometheus_data_source=$(cat <<EOF
+{
+  "access": "proxy",
+  "isDefault": true,
+  "jsonData": {},
+  "name": "prometheus",
+  "type": "prometheus",
+  "url": "http://localhost:$STATS_PORT"
+}
+EOF
+)
 
 until $(curl -sfo /dev/null http://localhost:$PUBLIC_PORT/api/datasources); do
   # wait for grafana to boot
   sleep 1
 done
-curl -vX POST -d @/etc/grafana/prometheus_data_source.json -H "Content-Type: application/json" http://localhost:$PUBLIC_PORT/api/datasources
+curl -vX POST -d "${prometheus_data_source}" -H "Content-Type: application/json" http://localhost:$PUBLIC_PORT/api/datasources
 curl -vX PUT -d"{\"theme\": \"dark\"}" -H "Content-Type: application/json" http://localhost:$PUBLIC_PORT/api/org/preferences
 
-# boot prometheus
+#
+# init prometheus
+#
+
 /bin/prometheus \
   -config.file=/etc/prometheus/prometheus-$PLATFORM.yml \
   -storage.local.path=/prometheus \
