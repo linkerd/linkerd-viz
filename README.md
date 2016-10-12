@@ -40,7 +40,8 @@ dcos package install linkerd-viz
 Custom installation
 
 ```bash
-dcos marathon app add dcos/linkerd-viz.json
+dcos marathon app add dcos/linkerd-viz-prometheus.json
+dcos marathon app add dcos/linkerd-viz-grafana.json
 ```
 
 View dashboard

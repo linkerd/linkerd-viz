@@ -6,15 +6,14 @@ scrape_configs:
 - job_name: 'linkerd'
   metrics_path: /admin/metrics/prometheus
 
-  marathon_sd_configs:
-  - servers:
-    - 'http://marathon.mesos:8080'
+  static_configs:
+  - targets:
+    - '10.0.3.100:4142'
+    - '10.0.3.101:4142'
+    - '10.0.3.102:4142'
+    - '10.0.7.163:4142'
 
   relabel_configs:
-  # only collect from linkerd's
-  - source_labels: ['__meta_marathon_app']
-    regex:         (.*linkerd$)
-    action:        keep
   # strip off port
   - source_labels: [__address__]
     action: replace
@@ -35,9 +34,30 @@ scrape_configs:
     target_label:  service
     regex:         rt:[^:]+:dst:id:_:io_l5d_marathon:([^:]+):.*
     replacement:   $1
-  # remove service name from metric (linkerd:outgoing:requests)
+  # write service name into label (for linkerd)
+  # rt:stats:dst:id:_:inet:127_1:9990:requests =>
+  # rt:stats:dst:id:_:inet:127_1:9990:requests{service:"linkerd"}
+  - source_labels: [__name__]
+    action:        replace
+    target_label:  service
+    regex:         rt:[^:]+:dst:id:_:inet:127_1:9990:.*
+    replacement:   linkerd
+  # remove service name from metric (linkerd:incoming:requests)
   - source_labels: [__name__]
     action:        replace
     target_label:  __name__
     regex:         rt:([^:]+):dst:id:_:io_l5d_marathon:[^:]+:(.*)
     replacement:   linkerd:$1:$2
+  # remove service name from metric for linkerd (linkerd:incoming:requests)
+  - source_labels: [__name__]
+    action:        replace
+    target_label:  __name__
+    regex:         rt:([^:]+):dst:id:_:inet:127_1:9990:(.*)
+    replacement:   linkerd:$1:$2
+  # now merge all linkerd:*:* stats into linkerd:incoming:*
+  - source_labels: [__name__]
+    action:        replace
+    target_label:  __name__
+    # regex:         linkerd:[^:]+:(.*)
+    regex:         linkerd:(incoming|stats):(.*)
+    replacement:   linkerd:incoming:$2

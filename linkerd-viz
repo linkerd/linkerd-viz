@@ -8,14 +8,30 @@
 # platform can be one of: [dcos, k8s]
 
 PLATFORM="${1:-dcos}"
+APP="${2:-grafana}"
 PUBLIC_PORT="${PUBLIC_PORT:-3000}"
 STATS_PORT="${STATS_PORT:-9090}"
 
-#
-# init grafana
-#
+if [ "$APP" = "grafana" ]; then
 
-grafana_ini=$(cat <<EOF
+  #
+  # init grafana
+  #
+  echo "initializing grafana"
+
+  prometheus_data_source=$(cat <<EOF
+{
+  "access": "proxy",
+  "isDefault": true,
+  "jsonData": {},
+  "name": "prometheus",
+  "type": "prometheus",
+  "url": "http://prometheus"
+}
+EOF
+)
+
+  grafana_ini=$(cat <<EOF
 [auth.anonymous]
 enabled = true
 org_role = Admin
@@ -29,36 +45,30 @@ http_port = $PUBLIC_PORT
 EOF
 )
 
-printf "%s\n" "$grafana_ini" > /etc/grafana/grafana.ini
+  printf "%s\n" "$grafana_ini" > /etc/grafana/grafana.ini
 
-/run.sh &
+  http_proxy=http://localhost:4140 /run.sh &
 
-prometheus_data_source=$(cat <<EOF
-{
-  "access": "proxy",
-  "isDefault": true,
-  "jsonData": {},
-  "name": "prometheus",
-  "type": "prometheus",
-  "url": "http://localhost:$STATS_PORT"
-}
-EOF
-)
+  until $(curl -sfo /dev/null http://localhost:$PUBLIC_PORT/api/datasources); do
+    # wait for grafana to boot
+    sleep 1
+  done
+  curl -vX POST -d "${prometheus_data_source}" -H "Content-Type: application/json" http://localhost:$PUBLIC_PORT/api/datasources
+  curl -vX PUT -d"{\"theme\": \"dark\"}" -H "Content-Type: application/json" http://localhost:$PUBLIC_PORT/api/org/preferences
 
-until $(curl -sfo /dev/null http://localhost:$PUBLIC_PORT/api/datasources); do
-  # wait for grafana to boot
-  sleep 1
-done
-curl -vX POST -d "${prometheus_data_source}" -H "Content-Type: application/json" http://localhost:$PUBLIC_PORT/api/datasources
-curl -vX PUT -d"{\"theme\": \"dark\"}" -H "Content-Type: application/json" http://localhost:$PUBLIC_PORT/api/org/preferences
+  tail -f /var/log/grafana/grafana.log
 
-#
-# init prometheus
-#
+else
 
-/bin/prometheus \
-  -config.file=/etc/prometheus/prometheus-$PLATFORM.yml \
-  -storage.local.path=/prometheus \
-  -web.console.libraries=/etc/prometheus/console_libraries \
-  -web.console.templates=/etc/prometheus/consoles \
-  -web.listen-address=:$STATS_PORT
+  #
+  # init prometheus
+  #
+  echo "initializing prometheus"
+
+  /bin/prometheus \
+    -config.file=/etc/prometheus/prometheus-$PLATFORM.yml \
+    -storage.local.path=/prometheus \
+    -web.console.libraries=/etc/prometheus/console_libraries \
+    -web.console.templates=/etc/prometheus/consoles \
+    -web.listen-address=:$STATS_PORT
+fi

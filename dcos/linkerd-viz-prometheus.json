@@ -1,20 +1,20 @@
 {
-  "id": "linkerd-viz",
+  "id": "prometheus",
   "instances": 1,
   "cpus": 1.0,
   "mem": 512.0,
-  "acceptedResourceRoles": ["slave_public"],
+  "acceptedResourceRoles": ["*"],
   "maintainer": "hello@buoyant.io",
   "container": {
     "type": "DOCKER",
     "docker": {
-      "image": "buoyantio/linkerd-viz:latest",
+      "image": "buoyantio/linkerd-viz:sigtest",
       "forcePullImage": true,
       "network": "HOST",
       "privileged": true
     }
   },
-  "args": ["dcos"],
+  "args": ["dcos", "prometheus"],
   "healthChecks": [
     {
       "protocol": "HTTP",
@@ -27,16 +27,10 @@
       "port": 9090,
       "protocol": "tcp",
       "name": "stats"
-    },
-    {
-      "port": 3000,
-      "protocol": "tcp",
-      "name": "public"
     }
   ],
   "requirePorts": true,
   "env": {
-    "PUBLIC_PORT": "3000",
     "STATS_PORT": "9090"
   }
 }

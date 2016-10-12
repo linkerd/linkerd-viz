@@ -1,0 +1,36 @@
+{
+  "id": "grafana",
+  "instances": 1,
+  "cpus": 1.0,
+  "mem": 512.0,
+  "acceptedResourceRoles": ["*"],
+  "maintainer": "hello@buoyant.io",
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "image": "buoyantio/linkerd-viz:sigtest",
+      "forcePullImage": true,
+      "network": "HOST",
+      "privileged": true
+    }
+  },
+  "args": ["dcos", "grafana"],
+  "healthChecks": [
+    {
+      "protocol": "HTTP",
+      "portIndex": 0,
+      "path": "/"
+    }
+  ],
+  "portDefinitions": [
+    {
+      "port": 3000,
+      "protocol": "tcp",
+      "name": "public"
+    }
+  ],
+  "requirePorts": true,
+  "env": {
+    "PUBLIC_PORT": "3000"
+  }
+}
