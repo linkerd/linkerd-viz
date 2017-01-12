@@ -39,11 +39,11 @@ scrape_configs:
   - source_labels: [__name__]
     action:        replace
     target_label:  service
-    regex:         rt:[^:]+:dst:id:_:io_l5d_k8s:[^:]+:[^:]+:([^:]+):.*
+    regex:         rt:[^:]+:dst:id.*:_:io_l5d_k8s:[^:]+:[^:]+:([^:]+):.*
     replacement:   $1
   # remove service name from metric (linkerd:outgoing:requests)
   - source_labels: [__name__]
     action:        replace
     target_label:  __name__
-    regex:         rt:([^:]+):dst:id:_:io_l5d_k8s:[^:]+:[^:]+:[^:]+:(.*)
+    regex:         rt:([^:]+):dst:id.*:_:io_l5d_k8s:[^:]+:[^:]+:[^:]+:(.*)
     replacement:   linkerd:$1:$2
