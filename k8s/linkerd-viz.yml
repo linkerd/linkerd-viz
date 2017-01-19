@@ -23,12 +23,12 @@ spec:
         - name: PUBLIC_PORT
           value: "3000"
         - name: STATS_PORT
-          value: "9090"
+          value: "9191"
         ports:
         - name: grafana
           containerPort: 3000
         - name: prometheus
-          containerPort: 9090
+          containerPort: 9191
 
       - name: kubectl
         image: buoyantio/kubectl:v1.4.0
@@ -50,7 +50,7 @@ spec:
     port: 80
     targetPort: 3000
   - name: prometheus
-    port: 9090
-    targetPort: 9090
+    port: 9191
+    targetPort: 9191
   selector:
     name: linkerd-viz

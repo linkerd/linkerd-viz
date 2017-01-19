@@ -9,7 +9,7 @@
 
 PLATFORM="${1:-dcos}"
 PUBLIC_PORT="${PUBLIC_PORT:-3000}"
-STATS_PORT="${STATS_PORT:-9090}"
+STATS_PORT="${STATS_PORT:-9191}"
 
 #
 # init grafana
@@ -53,10 +53,10 @@ curl -vX POST -d "${prometheus_data_source}" -H "Content-Type: application/json"
 curl -vX PUT -d"{\"theme\": \"dark\"}" -H "Content-Type: application/json" http://localhost:$PUBLIC_PORT/api/org/preferences
 
 #
-# init prometheus
+# init prometheus, exec as pid 1
 #
 
-/bin/prometheus \
+exec /bin/prometheus \
   -config.file=/etc/prometheus/prometheus-$PLATFORM.yml \
   -storage.local.path=/prometheus \
   -web.console.libraries=/etc/prometheus/console_libraries \

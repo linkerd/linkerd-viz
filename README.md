@@ -15,18 +15,16 @@ your applications have been configured to route via linkerd. For more
 information on getting started with linkerd have a look at our [Getting Started
 guides](https://linkerd.io/getting-started/).
 
-## Build and push Docker image
+## Build Docker image
 
 ```bash
-./dockerize [docker-tag]
+docker build -t buoyantio/linkerd-viz:latest .
 ```
-
-Default `docker-tag` is `buoyantio/linkerd-viz:latest`
 
 ## Local boot
 
 ```bash
-docker run -p 3000:3000 -p 9090:9090 buoyantio/linkerd-viz
+docker run -p 3000:3000 -p 9191:9191 buoyantio/linkerd-viz
 ```
 
 ## DC/OS Deploy
