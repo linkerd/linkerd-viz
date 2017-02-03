@@ -5,7 +5,7 @@
 # usage:
 # ./linkerd-viz [platform]
 #
-# platform can be one of: [dcos, k8s]
+# platform can be one of: [dcos, k8s, consul]
 
 PLATFORM="${1:-dcos}"
 PUBLIC_PORT="${PUBLIC_PORT:-3000}"

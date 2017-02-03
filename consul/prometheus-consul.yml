@@ -1,0 +1,57 @@
+global:
+  scrape_interval:     5s
+  evaluation_interval: 5s
+
+scrape_configs:
+- job_name: 'linkerd'
+  metrics_path: /admin/metrics/prometheus
+
+  consul_sd_configs:
+  # change these as necessary, this assumes a local consul agent and linkerd is the consul service name
+  - server:   'localhost:8500'
+    services: ['linkerd']
+
+  relabel_configs:
+  # only collect from linkerd's
+  - source_labels: ['__meta_consul_service']
+    regex:         (.*linkerd$)
+    action:        keep
+  # rewrite to admin port
+  - source_labels: [__address__]
+    action: replace
+    target_label: __address__
+    regex: (.+)(?::\d+)
+    replacement: $1:9990
+  # strip off port
+  - source_labels: [__address__]
+    action: replace
+    target_label: instance
+    regex: (.+)(?::\d+)
+    replacement: $1
+
+  metric_relabel_configs:
+  # remove explicit linkerd proxy ports
+  - source_labels: [__name__]
+    action:        replace
+    target_label:  __name__
+    regex:         rt:([^:]+):srv:0_0_0_0:[^:]+:(.*)
+    replacement:   rt:$1:srv:0_0_0_0:port:$2
+  # write service names into label {service:"app1"}
+  - source_labels: [__name__]
+    action:        replace
+    target_label:  service
+    # use this if you for includeTag: false
+    # regex:         rt:[^:]+:dst:id.*:_:consul:[^:]+:([^:]+):.*
+    # replacement:   $1
+    # use this if you for includeTag: true
+    regex:         rt:[^:]+:dst:id.*:_:consul:[^:]+:([^:]+):([^:]+):.*
+    replacement:   ${2}_${1}
+  # remove service name from metric (linkerd:outgoing:requests)
+  - source_labels: [__name__]
+    action:        replace
+    target_label:  __name__
+    # use this if you for includeTag: false
+    # regex:         rt:[^:]+:dst:id.*:_:consul:[^:]+:[^:]+:(.*)
+    # use this if you for includeTag: true
+    regex:         rt:[^:]+:dst:id.*:_:consul:[^:]+:[^:]+:[^:]+:(.*)
+    replacement:   linkerd:incoming:$1
