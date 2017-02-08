@@ -7,9 +7,8 @@ scrape_configs:
   metrics_path: /admin/metrics/prometheus
 
   kubernetes_sd_configs:
-  - api_servers:
-    - 'http://localhost:8001'
-    role: endpoint
+  - api_server: 'http://localhost:8001'
+    role: endpoints
 
   relabel_configs:
   # only collect from linkerd's
