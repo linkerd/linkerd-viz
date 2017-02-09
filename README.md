@@ -56,7 +56,7 @@ kubectl apply -f k8s/linkerd-viz.yml
 View dashboard
 
 ```bash
-open http://$(kubectl get svc linkerd-viz -o jsonpath="{.status.loadBalancer.ingress[0].ip}")
+open http://$(kubectl get svc linkerd-viz -o jsonpath="{.status.loadBalancer.ingress[0].*}")
 ```
 
 ## Consul Deploy
