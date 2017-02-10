@@ -94,7 +94,7 @@
           },
           "targets": [
             {
-              "expr": "count(count(linkerd:incoming:requests) by(service))",
+              "expr": "count(count(rt:dst_id:requests{rt=\"incoming\"}) by(service))",
               "intervalFactor": 2,
               "legendFormat": "",
               "refId": "A",
@@ -254,7 +254,7 @@
           },
           "targets": [
             {
-              "expr": "sum(irate(linkerd:incoming:success[1m])) / sum(irate(linkerd:incoming:requests[1m]))",
+              "expr": "sum(irate(rt:dst_id:success{rt=\"incoming\"}[1m])) / sum(irate(rt:dst_id:requests{rt=\"incoming\"}[1m]))",
               "intervalFactor": 2,
               "legendFormat": "",
               "refId": "A",
@@ -332,7 +332,7 @@
           },
           "targets": [
             {
-              "expr": "sum(irate(linkerd:incoming:requests[1m]))",
+              "expr": "sum(irate(rt:dst_id:requests{rt=\"incoming\"}[1m]))",
               "intervalFactor": 2,
               "legendFormat": "",
               "refId": "A",
@@ -411,7 +411,7 @@
           },
           "targets": [
             {
-              "expr": "sum(irate(linkerd:incoming:status:4XX[1m]))",
+              "expr": "sum(irate(rt:dst_id:status:4XX{rt=\"incoming\"}[1m]))",
               "intervalFactor": 2,
               "refId": "A",
               "step": 4
@@ -489,7 +489,7 @@
           },
           "targets": [
             {
-              "expr": "sum(irate(linkerd:incoming:status:5XX[1m]))",
+              "expr": "sum(irate(rt:dst_id:status:5XX{rt=\"incoming\"}[1m]))",
               "intervalFactor": 2,
               "refId": "A",
               "step": 4
@@ -571,11 +571,11 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "round(sum(irate(linkerd:incoming:success{service=~\"$service\",instance=~\"$instance\"}[1m])) by (service) / sum(irate(linkerd:incoming:requests{service=~\"$service\",instance=~\"$instance\"}[1m])) by (service), .0001)",
+              "expr": "round(sum(irate(rt:dst_id:requests{rt=\"incoming\",service=~\"$service\",instance=~\"$instance\"}[1m])) by (service) / sum(irate(rt:dst_id:requests{service=~\"$service\",instance=~\"$instance\"}[1m])) by (service), .0001)",
               "intervalFactor": 2,
-              "legendFormat": "{{service}}",
               "refId": "A",
-              "step": 2
+              "step": 2,
+              "legendFormat": "{{service}}"
             }
           ],
           "timeFrom": null,
@@ -649,7 +649,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(irate(linkerd:incoming:requests{service=~\"$service\",instance=~\"$instance\"}[1m])) by (service)",
+              "expr": "sum(irate(rt:dst_id:requests{rt=\"incoming\",service=~\"$service\",instance=~\"$instance\"}[1m])) by (service)",
               "intervalFactor": 2,
               "legendFormat": "{{service}}",
               "refId": "A",
@@ -728,21 +728,21 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "max(linkerd:incoming:request_latency_ms{stat=\"p95\",service=~\"$service\",instance=~\"$instance\"}) by (service)",
+              "expr": "max(rt:dst_id:request_latency_ms{rt=\"incoming\",quantile=\"0.95\",service=~\"$service\",instance=~\"$instance\"}) by (service)",
               "intervalFactor": 2,
               "legendFormat": "p95_{{service}}",
               "refId": "A",
               "step": 2
             },
             {
-              "expr": "max(linkerd:incoming:request_latency_ms{stat=\"p99\",service=~\"$service\",instance=~\"$instance\"}) by (service)",
+              "expr": "max(rt:dst_id:request_latency_ms{rt=\"incoming\",quantile=\"0.99\",service=~\"$service\",instance=~\"$instance\"}) by (service)",
               "intervalFactor": 2,
               "legendFormat": "p99_{{service}}",
               "refId": "B",
               "step": 2
             },
             {
-              "expr": "max(linkerd:incoming:request_latency_ms{stat=\"max\",service=~\"$service\",instance=~\"$instance\"}) by (service)",
+              "expr": "max(rt:dst_id:request_latency_ms{rt=\"incoming\",quantile=\"1\",service=~\"$service\",instance=~\"$instance\"}) by (service)",
               "intervalFactor": 2,
               "legendFormat": "max_{{service}}",
               "refId": "C",
@@ -885,11 +885,11 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "round(irate(linkerd:incoming:success{service=~\"$service\",instance=~\"$instance\"}[1m]) / irate(linkerd:incoming:requests{service=~\"$service\",instance=~\"$instance\"}[1m]), .0001)",
+              "expr": "round(irate(rt:dst_id:success{rt=\"incoming\",service=~\"$service\",instance=~\"$instance\"}[1m]) / irate(rt:dst_id:requests{rt=\"incoming\",service=~\"$service\",instance=~\"$instance\"}[1m]), .0001)",
               "intervalFactor": 2,
-              "legendFormat": "{{instance}}",
               "refId": "A",
-              "step": 2
+              "step": 2,
+              "legendFormat": "{{instance}}"
             }
           ],
           "timeFrom": null,
@@ -972,7 +972,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(linkerd:incoming:requests{service=~\"$service\",instance=~\"$instance\"}[1m])",
+              "expr": "irate(rt:dst_id:requests{rt=\"incoming\",service=~\"$service\",instance=~\"$instance\"}[1m])",
               "intervalFactor": 2,
               "legendFormat": "{{instance}}",
               "refId": "A",
@@ -1059,21 +1059,21 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "max(linkerd:incoming:request_latency_ms{stat=\"p95\",service=~\"$service\",instance=~\"$instance\"})",
+              "expr": "max(rt:dst_id:request_latency_ms{rt=\"incoming\",quantile=\"0.95\",service=~\"$service\",instance=~\"$instance\"})",
               "intervalFactor": 2,
               "legendFormat": "p95",
               "refId": "A",
               "step": 2
             },
             {
-              "expr": "max(linkerd:incoming:request_latency_ms{stat=\"p99\",service=~\"$service\",instance=~\"$instance\"})",
+              "expr": "max(rt:dst_id:request_latency_ms{rt=\"incoming\",quantile=\"0.99\",service=~\"$service\",instance=~\"$instance\"})",
               "intervalFactor": 2,
               "legendFormat": "p99",
               "refId": "B",
               "step": 2
             },
             {
-              "expr": "max(linkerd:incoming:request_latency_ms{stat=\"max\",service=~\"$service\",instance=~\"$instance\"})",
+              "expr": "max(rt:dst_id:request_latency_ms{rt=\"incoming\",quantile=\"1\",service=~\"$service\",instance=~\"$instance\"})",
               "intervalFactor": 2,
               "legendFormat": "max",
               "refId": "C",
@@ -1118,644 +1118,6 @@
         "service": {
           "text": "webapp",
           "value": "webapp",
-          "selected": false
-        }
-      },
-      "showTitle": false,
-      "title": "$service"
-    },
-    {
-      "collapse": false,
-      "editable": true,
-      "height": "250px",
-      "panels": [
-        {
-          "content": "<div>\n  <img src=\"https://linkerd.io/images/logo-only-200h.png\" style=\"baseline; height:40px;\"/>&nbsp;\n  <span style=\"font-size: 15px; border-image:none\">$service</span>\n</div>\n",
-          "editable": true,
-          "error": false,
-          "height": "1px",
-          "id": 55,
-          "isNew": true,
-          "links": [],
-          "minSpan": 12,
-          "mode": "html",
-          "repeatIteration": 1475014386126,
-          "scopedVars": {
-            "service": {
-              "text": "webapp2",
-              "value": "webapp2",
-              "selected": false
-            }
-          },
-          "span": 12,
-          "title": "",
-          "transparent": true,
-          "type": "text"
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "height": "250px",
-          "id": 56,
-          "isNew": true,
-          "legend": {
-            "alignAsTable": false,
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "rightSide": false,
-            "show": false,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 2,
-          "links": [],
-          "minSpan": 4,
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "repeatIteration": 1475014386126,
-          "scopedVars": {
-            "service": {
-              "text": "webapp2",
-              "value": "webapp2",
-              "selected": false
-            }
-          },
-          "seriesOverrides": [],
-          "span": 4,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "round(irate(linkerd:incoming:success{service=~\"$service\",instance=~\"$instance\"}[1m]) / irate(linkerd:incoming:requests{service=~\"$service\",instance=~\"$instance\"}[1m]), .0001)",
-              "intervalFactor": 2,
-              "legendFormat": "{{instance}}",
-              "refId": "A",
-              "step": 2
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Success Rate",
-          "tooltip": {
-            "msResolution": false,
-            "shared": true,
-            "sort": 1,
-            "value_type": "cumulative"
-          },
-          "type": "graph",
-          "xaxis": {
-            "show": true
-          },
-          "yaxes": [
-            {
-              "format": "percentunit",
-              "label": "",
-              "logBase": 1,
-              "max": 1,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": false
-            }
-          ]
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "height": "250px",
-          "id": 57,
-          "isNew": true,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": false,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 2,
-          "links": [],
-          "minSpan": 4,
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "repeatIteration": 1475014386126,
-          "scopedVars": {
-            "service": {
-              "text": "webapp2",
-              "value": "webapp2",
-              "selected": false
-            }
-          },
-          "seriesOverrides": [],
-          "span": 4,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "irate(linkerd:incoming:requests{service=~\"$service\",instance=~\"$instance\"}[1m])",
-              "intervalFactor": 2,
-              "legendFormat": "{{instance}}",
-              "refId": "A",
-              "step": 2
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Request Volume",
-          "tooltip": {
-            "msResolution": false,
-            "shared": true,
-            "sort": 2,
-            "value_type": "cumulative"
-          },
-          "type": "graph",
-          "xaxis": {
-            "show": true
-          },
-          "yaxes": [
-            {
-              "format": "rps",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": false
-            }
-          ]
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "height": "250px",
-          "id": 58,
-          "isNew": true,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": false,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 2,
-          "links": [],
-          "minSpan": 4,
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "repeatIteration": 1475014386126,
-          "scopedVars": {
-            "service": {
-              "text": "webapp2",
-              "value": "webapp2",
-              "selected": false
-            }
-          },
-          "seriesOverrides": [],
-          "span": 4,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "max(linkerd:incoming:request_latency_ms{stat=\"p95\",service=~\"$service\",instance=~\"$instance\"})",
-              "intervalFactor": 2,
-              "legendFormat": "p95",
-              "refId": "A",
-              "step": 2
-            },
-            {
-              "expr": "max(linkerd:incoming:request_latency_ms{stat=\"p99\",service=~\"$service\",instance=~\"$instance\"})",
-              "intervalFactor": 2,
-              "legendFormat": "p99",
-              "refId": "B",
-              "step": 2
-            },
-            {
-              "expr": "max(linkerd:incoming:request_latency_ms{stat=\"max\",service=~\"$service\",instance=~\"$instance\"})",
-              "intervalFactor": 2,
-              "legendFormat": "max",
-              "refId": "C",
-              "step": 2
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Latency",
-          "tooltip": {
-            "msResolution": false,
-            "shared": true,
-            "sort": 2,
-            "value_type": "cumulative"
-          },
-          "type": "graph",
-          "xaxis": {
-            "show": true
-          },
-          "yaxes": [
-            {
-              "format": "ms",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": false
-            }
-          ]
-        }
-      ],
-      "repeat": null,
-      "repeatIteration": 1475014386126,
-      "repeatRowId": 5,
-      "scopedVars": {
-        "service": {
-          "text": "webapp2",
-          "value": "webapp2",
-          "selected": false
-        }
-      },
-      "showTitle": false,
-      "title": "$service"
-    },
-    {
-      "collapse": false,
-      "editable": true,
-      "height": "250px",
-      "panels": [
-        {
-          "content": "<div>\n  <img src=\"https://linkerd.io/images/logo-only-200h.png\" style=\"baseline; height:40px;\"/>&nbsp;\n  <span style=\"font-size: 15px; border-image:none\">$service</span>\n</div>\n",
-          "editable": true,
-          "error": false,
-          "height": "1px",
-          "id": 59,
-          "isNew": true,
-          "links": [],
-          "minSpan": 12,
-          "mode": "html",
-          "repeatIteration": 1475014386126,
-          "scopedVars": {
-            "service": {
-              "text": "webapp3",
-              "value": "webapp3",
-              "selected": false
-            }
-          },
-          "span": 12,
-          "title": "",
-          "transparent": true,
-          "type": "text"
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "height": "250px",
-          "id": 60,
-          "isNew": true,
-          "legend": {
-            "alignAsTable": false,
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "rightSide": false,
-            "show": false,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 2,
-          "links": [],
-          "minSpan": 4,
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "repeatIteration": 1475014386126,
-          "scopedVars": {
-            "service": {
-              "text": "webapp3",
-              "value": "webapp3",
-              "selected": false
-            }
-          },
-          "seriesOverrides": [],
-          "span": 4,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "round(irate(linkerd:incoming:success{service=~\"$service\",instance=~\"$instance\"}[1m]) / irate(linkerd:incoming:requests{service=~\"$service\",instance=~\"$instance\"}[1m]), .0001)",
-              "intervalFactor": 2,
-              "legendFormat": "{{instance}}",
-              "refId": "A",
-              "step": 2
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Success Rate",
-          "tooltip": {
-            "msResolution": false,
-            "shared": true,
-            "sort": 1,
-            "value_type": "cumulative"
-          },
-          "type": "graph",
-          "xaxis": {
-            "show": true
-          },
-          "yaxes": [
-            {
-              "format": "percentunit",
-              "label": "",
-              "logBase": 1,
-              "max": 1,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": false
-            }
-          ]
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "height": "250px",
-          "id": 61,
-          "isNew": true,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": false,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 2,
-          "links": [],
-          "minSpan": 4,
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "repeatIteration": 1475014386126,
-          "scopedVars": {
-            "service": {
-              "text": "webapp3",
-              "value": "webapp3",
-              "selected": false
-            }
-          },
-          "seriesOverrides": [],
-          "span": 4,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "irate(linkerd:incoming:requests{service=~\"$service\",instance=~\"$instance\"}[1m])",
-              "intervalFactor": 2,
-              "legendFormat": "{{instance}}",
-              "refId": "A",
-              "step": 2
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Request Volume",
-          "tooltip": {
-            "msResolution": false,
-            "shared": true,
-            "sort": 2,
-            "value_type": "cumulative"
-          },
-          "type": "graph",
-          "xaxis": {
-            "show": true
-          },
-          "yaxes": [
-            {
-              "format": "rps",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": false
-            }
-          ]
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "datasource": null,
-          "editable": true,
-          "error": false,
-          "fill": 1,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "height": "250px",
-          "id": 62,
-          "isNew": true,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": false,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 2,
-          "links": [],
-          "minSpan": 4,
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "repeatIteration": 1475014386126,
-          "scopedVars": {
-            "service": {
-              "text": "webapp3",
-              "value": "webapp3",
-              "selected": false
-            }
-          },
-          "seriesOverrides": [],
-          "span": 4,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "expr": "max(linkerd:incoming:request_latency_ms{stat=\"p95\",service=~\"$service\",instance=~\"$instance\"})",
-              "intervalFactor": 2,
-              "legendFormat": "p95",
-              "refId": "A",
-              "step": 2
-            },
-            {
-              "expr": "max(linkerd:incoming:request_latency_ms{stat=\"p99\",service=~\"$service\",instance=~\"$instance\"})",
-              "intervalFactor": 2,
-              "legendFormat": "p99",
-              "refId": "B",
-              "step": 2
-            },
-            {
-              "expr": "max(linkerd:incoming:request_latency_ms{stat=\"max\",service=~\"$service\",instance=~\"$instance\"})",
-              "intervalFactor": 2,
-              "legendFormat": "max",
-              "refId": "C",
-              "step": 2
-            }
-          ],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Latency",
-          "tooltip": {
-            "msResolution": false,
-            "shared": true,
-            "sort": 2,
-            "value_type": "cumulative"
-          },
-          "type": "graph",
-          "xaxis": {
-            "show": true
-          },
-          "yaxes": [
-            {
-              "format": "ms",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": false
-            }
-          ]
-        }
-      ],
-      "repeat": null,
-      "repeatIteration": 1475014386126,
-      "repeatRowId": 5,
-      "scopedVars": {
-        "service": {
-          "text": "webapp3",
-          "value": "webapp3",
           "selected": false
         }
       },
@@ -1821,7 +1183,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "round(sum(irate(linkerd:incoming:success{service=~\"$service\",instance=~\"$instance\"}[1m])) by (instance) / sum(irate(linkerd:incoming:requests{service=~\"$service\",instance=~\"$instance\"}[1m])) by (instance), .0001)",
+              "expr": "round(sum(irate(rt:srv:success{rt=\"incoming\",instance=~\"$instance\"}[1m])) by (instance) / sum(irate(rt:srv:requests{rt=\"incoming\",instance=~\"$instance\"}[1m])) by (instance), .0001)",
               "intervalFactor": 2,
               "legendFormat": "{{instance}}",
               "refId": "A",
@@ -1900,7 +1262,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(irate(linkerd:incoming:requests{service=~\"$service\",instance=~\"$instance\"}[1m])) by (instance)",
+              "expr": "sum(irate(rt:srv:requests{rt=\"incoming\",instance=~\"$instance\"}[1m])) by (instance)",
               "intervalFactor": 2,
               "legendFormat": "{{instance}}",
               "refId": "A",
@@ -1979,7 +1341,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "rt:incoming:srv:0_0_0_0:port:request_latency_ms{stat=\"p95\", instance=~\"$instance\"}",
+              "expr": "rt:srv:request_latency_ms{rt=\"incoming\",quantile=\"0.95\",instance=~\"$instance\"}",
               "hide": false,
               "interval": "",
               "intervalFactor": 2,
@@ -1988,14 +1350,14 @@
               "step": 2
             },
             {
-              "expr": "rt:incoming:srv:0_0_0_0:port:request_latency_ms{stat=\"p99\", instance=~\"$instance\"}",
+              "expr": "rt:srv:request_latency_ms{rt=\"incoming\",quantile=\"0.99\",instance=~\"$instance\"}",
               "intervalFactor": 2,
               "legendFormat": "p99_{{instance}}",
               "refId": "B",
               "step": 2
             },
             {
-              "expr": "rt:incoming:srv:0_0_0_0:port:request_latency_ms{stat=\"max\", instance=~\"$instance\"}",
+              "expr": "rt:srv:request_latency_ms{rt=\"incoming\",quantile=\"1\",instance=~\"$instance\"}",
               "intervalFactor": 2,
               "legendFormat": "max_{{instance}}",
               "refId": "C",
@@ -2093,16 +1455,6 @@
             "text": "webapp",
             "value": "webapp",
             "selected": false
-          },
-          {
-            "text": "webapp2",
-            "value": "webapp2",
-            "selected": false
-          },
-          {
-            "text": "webapp3",
-            "value": "webapp3",
-            "selected": false
           }
         ],
         "query": "label_values(service)",
@@ -2133,21 +1485,6 @@
           {
             "text": "10.0.3.197",
             "value": "10.0.3.197",
-            "selected": false
-          },
-          {
-            "text": "10.0.3.198",
-            "value": "10.0.3.198",
-            "selected": false
-          },
-          {
-            "text": "10.0.3.199",
-            "value": "10.0.3.199",
-            "selected": false
-          },
-          {
-            "text": "10.0.7.208",
-            "value": "10.0.7.208",
             "selected": false
           }
         ],
