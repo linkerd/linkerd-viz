@@ -27,5 +27,5 @@ scrape_configs:
   - source_labels: [dst_id]
     action:        replace
     target_label:  service
-    regex:         .*/([^/]+)
+    regex:         .*io\.l5d\.marathon\/(.*)
     replacement:   $1
