@@ -38,7 +38,7 @@ dcos package install linkerd-viz
 Custom installation
 
 ```bash
-dcos marathon app add https://raw.githubusercontent.com/BuoyantIO/linkerd-viz/master/dcos/linkerd-viz.json
+dcos marathon app add dcos/linkerd-viz.json
 ```
 
 View dashboard
