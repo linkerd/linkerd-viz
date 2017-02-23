@@ -11,9 +11,18 @@ linkerd-viz currently supports [DC/OS](https://dcos.io/) and
 [Kubernetes](http://kubernetes.io/).
 
 linkerd-viz assumes linkerd has already been deployed onto your cluster, and
-your applications have been configured to route via linkerd. For more
-information on getting started with linkerd have a look at our [Getting Started
-guides](https://linkerd.io/getting-started/).
+your applications have been configured to route via linkerd. You'll also need
+to configure linkerd with the `io.l5d.prometheus` telemeter, to expose the stats
+that are displayed by linkerd-viz. You should add this block to your linkerd
+configuration file:
+
+```yaml
+telemetry:
+- kind: io.l5d.prometheus
+```
+
+For more information on getting started with linkerd have a look at our [Getting
+Started guides](https://linkerd.io/getting-started/).
 
 ## Build Docker image
 
