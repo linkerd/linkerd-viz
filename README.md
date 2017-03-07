@@ -88,3 +88,8 @@ View dashboard
 ```bash
 open localhost:3000
 ```
+
+## Mesos + Marathon Deploy
+
+For more deployment instructions, see the
+[mesos-marathon configs in the linkerd-examples repo](https://github.com/BuoyantIO/linkerd-examples/tree/master/mesos-marathon).
