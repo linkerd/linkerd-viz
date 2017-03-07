@@ -1,3 +1,5 @@
+[![Docker Pulls](https://img.shields.io/docker/pulls/buoyantio/linkerd-viz.svg)](https://hub.docker.com/r/buoyantio/linkerd-viz/)
+
 # linkerd-viz
 
 Dead simple monitoring for [linkerd](https://linkerd.io).
