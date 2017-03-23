@@ -6,32 +6,31 @@ scrape_configs:
 - job_name: 'linkerd'
   metrics_path: /admin/metrics/prometheus
 
-  kubernetes_sd_configs:
-  - api_server: 'http://localhost:8001'
-    role: endpoints
+  static_configs:
+  - targets: ['proxy-test-4d:10001']
 
-  relabel_configs:
-  # only collect from linkerd's
-  - source_labels: ['__meta_kubernetes_service_name']
-    regex:         (.*l5d$)
-    action:        keep
-  # only collect from the admin port
-  - source_labels: [__address__]
-    action: replace
-    target_label: __address__
-    regex: (.+)(?::\d+)
-    replacement: $1:9990
-  # strip off port
-  - source_labels: [__address__]
-    action: replace
-    target_label: instance
-    regex: (.+)(?::\d+)
-    replacement: $1
+  # relabel_configs:
+  # # only collect from linkerd's
+  # - source_labels: ['__meta_kubernetes_service_name']
+  #   regex:         (.*l5d$)
+  #   action:        keep
+  # # only collect from the admin port
+  # - source_labels: [__address__]
+  #   action: replace
+  #   target_label: __address__
+  #   regex: (.+)(?::\d+)
+  #   replacement: $1:9990
+  # # strip off port
+  # - source_labels: [__address__]
+  #   action: replace
+  #   target_label: instance
+  #   regex: (.+)(?::\d+)
+  #   replacement: $1
 
-  metric_relabel_configs:
-  # write service names into service label {service:"app1"}
-  - source_labels: [dst_id]
-    action:        replace
-    target_label:  service
-    regex:         .*/([^/]+)
-    replacement:   $1
+  # metric_relabel_configs:
+  # # write service names into service label {service:"app1"}
+  # - source_labels: [dst_id]
+  #   action:        replace
+  #   target_label:  service
+  #   regex:         .*/([^/]+)
+  #   replacement:   $1

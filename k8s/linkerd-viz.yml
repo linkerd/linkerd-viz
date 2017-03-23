@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: linkerd-viz
-        image: buoyantio/linkerd-viz:latest
+        image: buoyantio/linkerd-viz:stevej-linkerd-tcp-perf-test
         args: ["k8s"]
         imagePullPolicy: Always
         env:
