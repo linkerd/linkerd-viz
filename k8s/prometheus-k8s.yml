@@ -3,11 +3,11 @@ global:
   evaluation_interval: 5s
 
 scrape_configs:
-- job_name: 'linkerd'
-  metrics_path: /admin/metrics/prometheus
+- job_name: 'linkerd-tcp'
+  metrics_path: /metrics
 
   static_configs:
-  - targets: ['proxy-test-4d:10001']
+  - targets: ['proxy-test-4d:9989']
 
   # relabel_configs:
   # # only collect from linkerd's
