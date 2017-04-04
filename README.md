@@ -94,4 +94,4 @@ open localhost:3000
 ## Mesos + Marathon Deploy
 
 For more deployment instructions, see the
-[mesos-marathon configs in the linkerd-examples repo](https://github.com/BuoyantIO/linkerd-examples/tree/master/mesos-marathon).
+[mesos-marathon configs in the linkerd-examples repo](https://github.com/linkerd/linkerd-examples/tree/master/mesos-marathon).
