@@ -9,6 +9,12 @@
     "type": "DOCKER",
     "docker": {
       "image": "buoyantio/linkerd-viz:latest",
+      "parameters": [
+        {
+          "key": "add-host",
+          "value": "marathon.mesos:192.168.250.11"
+        }
+      ],
       "forcePullImage": true,
       "network": "HOST",
       "privileged": true
