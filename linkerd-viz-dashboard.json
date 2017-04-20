@@ -94,7 +94,7 @@
           },
           "targets": [
             {
-              "expr": "count(count(rt:dst_id:requests{rt=\"$router\"}) by(service))",
+              "expr": "count(count(rt:client:requests{rt=\"$router\"}) by (client))",
               "intervalFactor": 2,
               "legendFormat": "",
               "refId": "A",
@@ -254,7 +254,7 @@
           },
           "targets": [
             {
-              "expr": "sum(irate(rt:dst_id:success{rt=\"$router\"}[1m])) / sum(irate(rt:dst_id:requests{rt=\"$router\"}[1m]))",
+              "expr": "sum(irate(rt:client:success{rt=\"$router\"}[1m])) / sum(irate(rt:client:requests{rt=\"$router\"}[1m]))",
               "intervalFactor": 2,
               "legendFormat": "",
               "refId": "A",
@@ -332,7 +332,7 @@
           },
           "targets": [
             {
-              "expr": "sum(irate(rt:dst_id:requests{rt=\"$router\"}[1m]))",
+              "expr": "sum(irate(rt:client:requests{rt=\"$router\"}[1m]))",
               "intervalFactor": 2,
               "legendFormat": "",
               "refId": "A",
@@ -411,7 +411,7 @@
           },
           "targets": [
             {
-              "expr": "sum(irate(rt:dst_id:status:4XX{rt=\"$router\"}[1m]))",
+              "expr": "sum(irate(rt:client:status:4XX{rt=\"$router\"}[1m]))",
               "intervalFactor": 2,
               "refId": "A",
               "step": 4
@@ -489,7 +489,7 @@
           },
           "targets": [
             {
-              "expr": "sum(irate(rt:dst_id:status:5XX{rt=\"$router\"}[1m]))",
+              "expr": "sum(irate(rt:client:status:5XX{rt=\"$router\"}[1m]))",
               "intervalFactor": 2,
               "refId": "A",
               "step": 4
@@ -571,11 +571,11 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "round(sum(irate(rt:dst_id:success{rt=\"$router\",service=~\"$service\",instance=~\"$instance\"}[1m])) by (service) / sum(irate(rt:dst_id:requests{rt=\"$router\", service=~\"$service\",instance=~\"$instance\"}[1m])) by (service), .0001)",
+              "expr": "round(sum(irate(rt:client:success{rt=\"$router\",client=~\"$service\",instance=~\"$instance\"}[1m])) by (client) / sum(irate(rt:client:requests{rt=\"$router\", client=~\"$service\",instance=~\"$instance\"}[1m])) by (client), .0001)",
               "intervalFactor": 2,
               "refId": "A",
               "step": 2,
-              "legendFormat": "{{service}}"
+              "legendFormat": "{{client}}"
             }
           ],
           "timeFrom": null,
@@ -649,9 +649,9 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(irate(rt:dst_id:requests{rt=\"$router\",service=~\"$service\",instance=~\"$instance\"}[1m])) by (service)",
+              "expr": "sum(irate(rt:client:requests{rt=\"$router\",client=~\"$service\",instance=~\"$instance\"}[1m])) by (client)",
               "intervalFactor": 2,
-              "legendFormat": "{{service}}",
+              "legendFormat": "{{client}}",
               "refId": "A",
               "step": 2
             }
@@ -728,23 +728,23 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "max(rt:dst_id:request_latency_ms{rt=\"$router\",quantile=\"0.95\",service=~\"$service\",instance=~\"$instance\"}) by (service)",
+              "expr": "max(rt:client:request_latency_ms{rt=\"$router\",quantile=\"0.95\",client=~\"$service\",instance=~\"$instance\"}) by (client)",
               "intervalFactor": 2,
-              "legendFormat": "p95_{{service}}",
+              "legendFormat": "p95_{{client}}",
               "refId": "A",
               "step": 2
             },
             {
-              "expr": "max(rt:dst_id:request_latency_ms{rt=\"$router\",quantile=\"0.99\",service=~\"$service\",instance=~\"$instance\"}) by (service)",
+              "expr": "max(rt:client:request_latency_ms{rt=\"$router\",quantile=\"0.99\",client=~\"$service\",instance=~\"$instance\"}) by (client)",
               "intervalFactor": 2,
-              "legendFormat": "p99_{{service}}",
+              "legendFormat": "p99_{{client}}",
               "refId": "B",
               "step": 2
             },
             {
-              "expr": "max(rt:dst_id:request_latency_ms{rt=\"$router\",quantile=\"1\",service=~\"$service\",instance=~\"$instance\"}) by (service)",
+              "expr": "max(rt:client:request_latency_ms{rt=\"$router\",quantile=\"1\",client=~\"$service\",instance=~\"$instance\"}) by (client)",
               "intervalFactor": 2,
-              "legendFormat": "max_{{service}}",
+              "legendFormat": "max_{{client}}",
               "refId": "C",
               "step": 2
             }
@@ -885,7 +885,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "round(irate(rt:dst_id:success{rt=\"$router\",service=~\"$service\",instance=~\"$instance\"}[1m]) / irate(rt:dst_id:requests{rt=\"$router\",service=~\"$service\",instance=~\"$instance\"}[1m]), .0001)",
+              "expr": "round(irate(rt:client:success{rt=\"$router\",client=~\"$service\",instance=~\"$instance\"}[1m]) / irate(rt:client:requests{rt=\"$router\",client=~\"$service\",instance=~\"$instance\"}[1m]), .0001)",
               "intervalFactor": 2,
               "refId": "A",
               "step": 2,
@@ -972,7 +972,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(rt:dst_id:requests{rt=\"$router\",service=~\"$service\",instance=~\"$instance\"}[1m])",
+              "expr": "irate(rt:client:requests{rt=\"$router\",client=~\"$service\",instance=~\"$instance\"}[1m])",
               "intervalFactor": 2,
               "legendFormat": "{{instance}}",
               "refId": "A",
@@ -1059,21 +1059,21 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "max(rt:dst_id:request_latency_ms{rt=\"$router\",quantile=\"0.95\",service=~\"$service\",instance=~\"$instance\"})",
+              "expr": "max(rt:client:request_latency_ms{rt=\"$router\",quantile=\"0.95\",client=~\"$service\",instance=~\"$instance\"})",
               "intervalFactor": 2,
               "legendFormat": "p95",
               "refId": "A",
               "step": 2
             },
             {
-              "expr": "max(rt:dst_id:request_latency_ms{rt=\"$router\",quantile=\"0.99\",service=~\"$service\",instance=~\"$instance\"})",
+              "expr": "max(rt:client:request_latency_ms{rt=\"$router\",quantile=\"0.99\",client=~\"$service\",instance=~\"$instance\"})",
               "intervalFactor": 2,
               "legendFormat": "p99",
               "refId": "B",
               "step": 2
             },
             {
-              "expr": "max(rt:dst_id:request_latency_ms{rt=\"$router\",quantile=\"1\",service=~\"$service\",instance=~\"$instance\"})",
+              "expr": "max(rt:client:request_latency_ms{rt=\"$router\",quantile=\"1\",client=~\"$service\",instance=~\"$instance\"})",
               "intervalFactor": 2,
               "legendFormat": "max",
               "refId": "C",
@@ -1183,7 +1183,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "round(sum(irate(rt:srv:success{rt=\"$router\",instance=~\"$instance\"}[1m])) by (instance) / sum(irate(rt:srv:requests{rt=\"$router\",instance=~\"$instance\"}[1m])) by (instance), .0001)",
+              "expr": "round(sum(irate(rt:server:success{rt=\"$router\",instance=~\"$instance\"}[1m])) by (instance) / sum(irate(rt:server:requests{rt=\"$router\",instance=~\"$instance\"}[1m])) by (instance), .0001)",
               "intervalFactor": 2,
               "legendFormat": "{{instance}}",
               "refId": "A",
@@ -1262,7 +1262,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(irate(rt:srv:requests{rt=\"$router\",instance=~\"$instance\"}[1m])) by (instance)",
+              "expr": "sum(irate(rt:server:requests{rt=\"$router\",instance=~\"$instance\"}[1m])) by (instance)",
               "intervalFactor": 2,
               "legendFormat": "{{instance}}",
               "refId": "A",
@@ -1341,7 +1341,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "rt:srv:request_latency_ms{rt=\"$router\",quantile=\"0.95\",instance=~\"$instance\"}",
+              "expr": "rt:server:request_latency_ms{rt=\"$router\",quantile=\"0.95\",instance=~\"$instance\"}",
               "hide": false,
               "interval": "",
               "intervalFactor": 2,
@@ -1350,14 +1350,14 @@
               "step": 2
             },
             {
-              "expr": "rt:srv:request_latency_ms{rt=\"$router\",quantile=\"0.99\",instance=~\"$instance\"}",
+              "expr": "rt:server:request_latency_ms{rt=\"$router\",quantile=\"0.99\",instance=~\"$instance\"}",
               "intervalFactor": 2,
               "legendFormat": "p99_{{instance}}",
               "refId": "B",
               "step": 2
             },
             {
-              "expr": "rt:srv:request_latency_ms{rt=\"$router\",quantile=\"1\",instance=~\"$instance\"}",
+              "expr": "rt:server:request_latency_ms{rt=\"$router\",quantile=\"1\",instance=~\"$instance\"}",
               "intervalFactor": 2,
               "legendFormat": "max_{{instance}}",
               "refId": "C",
@@ -1479,7 +1479,7 @@
             "selected": false
           }
         ],
-        "query": "label_values(service)",
+        "query": "label_values(client)",
         "refresh": 2,
         "regex": "",
         "tagsQuery": "",
