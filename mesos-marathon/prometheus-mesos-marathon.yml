@@ -23,9 +23,17 @@ scrape_configs:
     replacement: $1
 
   metric_relabel_configs:
-  # write service names into service label {service:"app1"}
-  - source_labels: [dst_id]
+  # simplify client names
+  # %/io.l5d.port/4141/#/io.l5d.marathon/webapp => webapp
+  - source_labels: [client]
+    action:        replace
+    target_label:  client
+    regex:         .*io\.l5d\.marathon\/(.*)
+    replacement:   $1
+  # simplify service names
+  # /svc/webapp => webapp
+  - source_labels: [service]
     action:        replace
     target_label:  service
-    regex:         .*io\.l5d\.marathon\/(.*)
+    regex:         .*svc\/(.*)
     replacement:   $1

@@ -5,6 +5,7 @@ EXPOSE 3000 9191
 
 RUN apt-get update                                       && \
     apt-get -y --no-install-recommends install curl wget && \
+    apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /etc/grafana/dashboards

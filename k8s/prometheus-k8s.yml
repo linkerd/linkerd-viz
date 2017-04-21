@@ -29,8 +29,12 @@ scrape_configs:
     replacement: $1
 
   metric_relabel_configs:
-  # write service names into service label {service:"app1"}
-  - source_labels: [dst_id]
+  - source_labels: [client]
+    action:        replace
+    target_label:  client
+    regex:         .*/([^/]+)
+    replacement:   $1
+  - source_labels: [service]
     action:        replace
     target_label:  service
     regex:         .*/([^/]+)
