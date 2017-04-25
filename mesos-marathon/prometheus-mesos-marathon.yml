@@ -8,7 +8,7 @@ scrape_configs:
 
   marathon_sd_configs:
   - servers:
-    - 'http://localhost:8080'
+    - 'http://marathon.mesos:8080'
 
   relabel_configs:
   # only collect from linkerd's
