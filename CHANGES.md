@@ -1,8 +1,10 @@
 ## In the next release
 
+## 0.1.0 2017-04-25
+
 * Updated for linkerd 1.0 metrics. This is a breaking change. This version of
-  linkerd-viz will only work with linkerd 1.0+, and previous versions of
-  linkerd-viz will only with with linkerd prior to 1.0.
+  linkerd-viz will only work with linkerd 1.0+. Previous versions of
+  linkerd-viz will only with linkerd prior to 1.0.
 * Moved to linkerd Github org
 
 ## 0.0.10 2017-04-01
