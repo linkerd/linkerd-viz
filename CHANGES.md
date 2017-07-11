@@ -1,5 +1,7 @@
 ## In the next release
 
+* Set default Prometheus `scrape_interval` and `evaluation_interval` to `1m`
+
 ## 0.1.0 2017-04-25
 
 * Updated for linkerd 1.0 metrics. This is a breaking change. This version of

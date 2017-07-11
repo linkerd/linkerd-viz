@@ -37,6 +37,7 @@
   "requirePorts": true,
   "env": {
     "PUBLIC_PORT": "3000",
-    "STATS_PORT": "9191"
+    "STATS_PORT": "9191",
+    "SCRAPE_INTERVAL": "1m"
   }
 }
