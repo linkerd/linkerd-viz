@@ -24,6 +24,8 @@ spec:
           value: "3000"
         - name: STATS_PORT
           value: "9191"
+        - name: SCRAPE_INTERVAL
+          value: "1m"
         ports:
         - name: grafana
           containerPort: 3000
