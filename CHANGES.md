@@ -1,6 +1,8 @@
 ## In the next release
 
-* Set default Prometheus `scrape_interval` and `evaluation_interval` to `1m`
+## 0.1.1 2017-07-12
+
+* Set default Prometheus `scrape_interval` and `evaluation_interval` to `1m`, make configurable.
 
 ## 0.1.0 2017-04-25
 
