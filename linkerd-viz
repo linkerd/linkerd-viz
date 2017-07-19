@@ -10,7 +10,7 @@
 PLATFORM="${1:-dcos}"
 PUBLIC_PORT="${PUBLIC_PORT:-3000}"
 STATS_PORT="${STATS_PORT:-9191}"
-SCRAPE_INTERVAL="${SCRAPE_INTERVAL:-1m}"
+SCRAPE_INTERVAL="${SCRAPE_INTERVAL:-30s}"
 
 #
 # init grafana
@@ -60,8 +60,8 @@ curl -vX PUT -d"{\"theme\": \"dark\"}" -H "Content-Type: application/json" http:
 # set scrape and evaluation intervals
 PROMETHEUS_CONF=/etc/prometheus/prometheus-$PLATFORM.yml
 
-sed -i "" "s@scrape_interval:.*@scrape_interval: $SCRAPE_INTERVAL@" $PROMETHEUS_CONF
-sed -i "" "s@ evaluation_interval:.*@ evaluation_interval: $SCRAPE_INTERVAL@" $PROMETHEUS_CONF
+sed -i"" "s@scrape_interval:.*@scrape_interval: $SCRAPE_INTERVAL@" $PROMETHEUS_CONF
+sed -i"" "s@evaluation_interval:.*@evaluation_interval: $SCRAPE_INTERVAL@" $PROMETHEUS_CONF
 
 exec /bin/prometheus \
   -config.file=$PROMETHEUS_CONF \
