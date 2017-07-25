@@ -1,5 +1,9 @@
 ## In the next release
 
+## 0.1.3 2017-07-24
+
+* Updated Consul config for simplified linkerd metric names
+
 ## 0.1.2 2017-07-19
 
 * Set default Prometheus `scrape_interval` and `evaluation_interval` to `30s`, to ensure Grafana `irate` graphs render properly.
