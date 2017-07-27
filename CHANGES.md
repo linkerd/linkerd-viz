@@ -1,12 +1,19 @@
 ## In the next release
 
+## 0.1.4 2017-07-27
+
+* make Consul hostname configurable via `CONSUL_HOST` environment variable
+* make Marathon hostname configurable via `MARATHON_HOST` environment variable
+* deprecate `mesos-marathon` config in favor of setting `MARATHON_HOST`
+
 ## 0.1.3 2017-07-24
 
 * Updated Consul config for simplified linkerd metric names
 
 ## 0.1.2 2017-07-19
 
-* Set default Prometheus `scrape_interval` and `evaluation_interval` to `30s`, to ensure Grafana `irate` graphs render properly.
+* Set default Prometheus `scrape_interval` and `evaluation_interval` to `30s`,
+ to ensure Grafana `irate` graphs render properly.
 * Fixed `scrape_interval` configuration not being honored.
 
 ## 0.1.1 2017-07-12

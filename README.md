@@ -84,7 +84,7 @@ for more information see [Running Consul Agent in Client Mode](https://hub.docke
 Boot `linkerd-viz` locally:
 
 ```bash
-docker run -d --net=host -p 3000:3000 -p 9191:9191 buoyantio/linkerd-viz:0.1.3 consul
+docker run -d --net=host -p 3000:3000 -p 9191:9191 buoyantio/linkerd-viz:0.1.4 consul
 ```
 
 View dashboard
@@ -92,8 +92,3 @@ View dashboard
 ```bash
 open localhost:3000
 ```
-
-## Mesos + Marathon Deploy
-
-For more deployment instructions, see the
-[mesos-marathon configs in the linkerd-examples repo](https://github.com/linkerd/linkerd-examples/tree/master/mesos-marathon).

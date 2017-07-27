@@ -8,7 +8,7 @@
   "container": {
     "type": "DOCKER",
     "docker": {
-      "image": "buoyantio/linkerd-viz:0.1.3",
+      "image": "buoyantio/linkerd-viz:0.1.4",
       "forcePullImage": true,
       "network": "HOST",
       "privileged": true
@@ -36,6 +36,7 @@
   ],
   "requirePorts": true,
   "env": {
+    "MARATHON_HOST": "marathon.mesos",
     "PUBLIC_PORT": "3000",
     "STATS_PORT": "9191",
     "SCRAPE_INTERVAL": "30s"
