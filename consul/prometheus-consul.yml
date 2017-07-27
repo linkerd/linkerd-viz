@@ -8,7 +8,7 @@ scrape_configs:
 
   consul_sd_configs:
   # change these as necessary, this assumes a local consul agent and linkerd is the consul service name
-  - server:   'localhost:8500'
+  - server:   'localhost:8500' # settable via CONSUL_HOST env var
     services: ['linkerd']
 
   relabel_configs:
