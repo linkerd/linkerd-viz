@@ -29,7 +29,7 @@ Started guides](https://linkerd.io/getting-started/).
 ## Build Docker image
 
 ```bash
-docker build -t buoyantio/linkerd-viz:latest .
+docker build -t buoyantio/linkerd-viz .
 ```
 
 ## Local boot
@@ -75,14 +75,16 @@ open http://$(kubectl get svc linkerd-viz -o jsonpath="{.status.loadBalancer.ing
 First, examine and edit `consul/prometheus-consul.yml` to fit your ecosystem.
 
 Run the Consul agent locally:
+
 ```bash
-docker run -d --net=host -e 'CONSUL_LOCAL_CONFIG={"leave_on_terminate": true}' consul agent -bind=<external ip> -retry-join=<root agent ip>
+docker run -d --net=host consul:0.9.0 agent -bind=<external ip> -retry-join=<root agent ip>
 ```
 for more information see [Running Consul Agent in Client Mode](https://hub.docker.com/_/consul/).
 
 Boot `linkerd-viz` locally:
+
 ```bash
-docker run -p 3000:3000 -p 9191:9191 buoyantio/linkerd-viz consul
+docker run -d --net=host -p 3000:3000 -p 9191:9191 buoyantio/linkerd-viz:0.1.3 consul
 ```
 
 View dashboard
