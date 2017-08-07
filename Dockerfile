@@ -23,9 +23,10 @@ RUN wget https://github.com/prometheus/prometheus/releases/download/v1.4.1/prome
 
 # linkerd-viz setup
 
-COPY linkerd-viz                /linkerd-viz
-COPY */prometheus-*.yml         /etc/prometheus/
-COPY linkerd-viz-dashboard.json /etc/grafana/dashboards/linkerd-viz-dashboard.json
-COPY linkerd-viz-dashboard.json /usr/share/grafana/public/dashboards/home.json
+COPY linkerd-viz                   /linkerd-viz
+COPY */prometheus-*.yml            /etc/prometheus/
+COPY linkerd-health-dashboard.json /etc/grafana/dashboards/linkerd-health-dashboard.json
+COPY linkerd-viz-dashboard.json    /etc/grafana/dashboards/linkerd-viz-dashboard.json
+COPY linkerd-viz-dashboard.json    /usr/share/grafana/public/dashboards/home.json
 
 ENTRYPOINT [ "/linkerd-viz" ]
