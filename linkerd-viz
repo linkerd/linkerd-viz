@@ -26,7 +26,7 @@ org_role = Admin
 
 [dashboards.json]
 enabled = true
-path = /etc/grafana/dashboards
+path = /var/lib/grafana/dashboards
 
 [server]
 http_port = $PUBLIC_PORT
