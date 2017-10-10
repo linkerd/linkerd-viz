@@ -3,6 +3,9 @@ MAINTAINER  Buoyant, Inc. <hello@buoyant.io>
 
 EXPOSE 3000 9191
 
+ARG prometheus_version=1.4.1
+ARG prometheus_archive_name=prometheus-$prometheus_version.linux-amd64
+
 RUN apt-get update                                       && \
     apt-get -y --no-install-recommends install curl wget && \
     apt-get clean && \
@@ -13,13 +16,13 @@ RUN mkdir -p /etc/prometheus
 
 # prometheus setup
 
-RUN wget https://github.com/prometheus/prometheus/releases/download/v1.4.1/prometheus-1.4.1.linux-amd64.tar.gz && \
-    tar -xf /prometheus-1.4.1.linux-amd64.tar.gz                                                               && \
-    cp      /prometheus-1.4.1.linux-amd64/prometheus        /bin/                                              && \
-    cp      /prometheus-1.4.1.linux-amd64/promtool          /bin/                                              && \
-    cp -a   /prometheus-1.4.1.linux-amd64/console_libraries /etc/prometheus/                                   && \
-    cp -a   /prometheus-1.4.1.linux-amd64/consoles          /etc/prometheus/                                   && \
-    rm -rf  /prometheus-1.4.1.linux-amd64*
+RUN wget https://github.com/prometheus/prometheus/releases/download/v$prometheus_version/$prometheus_archive_name.tar.gz && \
+    tar -xf /$prometheus_archive_name.tar.gz                                                               && \
+    cp      /$prometheus_archive_name/prometheus        /bin/                                              && \
+    cp      /$prometheus_archive_name/promtool          /bin/                                              && \
+    cp -a   /$prometheus_archive_name/console_libraries /etc/prometheus/                                   && \
+    cp -a   /$prometheus_archive_name/consoles          /etc/prometheus/                                   && \
+    rm -rf  /$prometheus_archive_name*
 
 # linkerd-viz setup
 
