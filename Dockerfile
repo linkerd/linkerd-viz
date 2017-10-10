@@ -3,7 +3,7 @@ MAINTAINER  Buoyant, Inc. <hello@buoyant.io>
 
 EXPOSE 3000 9191
 
-ARG prometheus_version=1.4.1
+ARG prometheus_version=1.7.0
 ARG prometheus_archive_name=prometheus-$prometheus_version.linux-amd64
 
 RUN apt-get update                                       && \
