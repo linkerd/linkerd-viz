@@ -1,5 +1,9 @@
 ## In the next release
 
+## 0.1.6 2017-10-17
+
+* Update Prometheus version from 1.4.1 to 1.7.0
+
 ## 0.1.5 2017-08-04
 
 * Add linkerd-health dashboard

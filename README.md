@@ -84,7 +84,7 @@ for more information see [Running Consul Agent in Client Mode](https://hub.docke
 Boot `linkerd-viz` locally:
 
 ```bash
-docker run -d --net=host -p 3000:3000 -p 9191:9191 buoyantio/linkerd-viz:0.1.5 consul
+docker run -d --net=host -p 3000:3000 -p 9191:9191 buoyantio/linkerd-viz:0.1.6 consul
 ```
 
 View dashboard

@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: linkerd-viz
-        image: buoyantio/linkerd-viz:0.1.5
+        image: buoyantio/linkerd-viz:0.1.6
         args: ["k8s"]
         imagePullPolicy: Always
         env:
