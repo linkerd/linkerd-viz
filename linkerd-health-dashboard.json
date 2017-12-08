@@ -1,16 +1,36 @@
 {
-  "id": 2,
-  "title": "linkerd-health",
-  "tags": [],
-  "style": "dark",
-  "timezone": "browser",
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
   "editable": true,
+  "gnetId": null,
+  "graphTooltip": 1,
   "hideControls": false,
-  "sharedCrosshair": true,
+  "id": 2,
+  "links": [
+    {
+      "icon": "external link",
+      "tags": [],
+      "targetBlank": true,
+      "title": "linkerd.io",
+      "type": "link",
+      "url": "https://linkerd.io"
+    }
+  ],
+  "refresh": "5s",
   "rows": [
     {
       "collapse": false,
-      "editable": true,
       "height": "50px",
       "panels": [
         {
@@ -18,7 +38,6 @@
           "editable": true,
           "error": false,
           "id": 20,
-          "isNew": true,
           "links": [],
           "mode": "html",
           "span": 12,
@@ -27,12 +46,15 @@
           "type": "text"
         }
       ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
       "showTitle": false,
-      "title": "title row"
+      "title": "title row",
+      "titleSize": "h6"
     },
     {
       "collapse": false,
-      "editable": true,
       "height": "150px",
       "panels": [
         {
@@ -57,7 +79,6 @@
           },
           "id": 49,
           "interval": null,
-          "isNew": true,
           "links": [],
           "mappingType": 1,
           "mappingTypes": [
@@ -92,6 +113,7 @@
             "lineColor": "rgb(31, 120, 193)",
             "show": false
           },
+          "tableColumn": "",
           "targets": [
             {
               "expr": "count(count(jvm:uptime) by(instance))",
@@ -138,7 +160,6 @@
           },
           "id": 51,
           "interval": null,
-          "isNew": true,
           "links": [],
           "mappingType": 1,
           "mappingTypes": [
@@ -172,6 +193,7 @@
             "lineColor": "rgb(31, 120, 193)",
             "show": true
           },
+          "tableColumn": "",
           "targets": [
             {
               "expr": "avg(jvm:uptime)",
@@ -216,7 +238,6 @@
           },
           "id": 53,
           "interval": null,
-          "isNew": true,
           "links": [],
           "mappingType": 1,
           "mappingTypes": [
@@ -251,6 +272,7 @@
             "lineColor": "rgb(31, 120, 193)",
             "show": true
           },
+          "tableColumn": "",
           "targets": [
             {
               "expr": "sum(jvm:num_cpus)",
@@ -295,7 +317,6 @@
           },
           "id": 52,
           "interval": null,
-          "isNew": true,
           "links": [],
           "mappingType": 1,
           "mappingTypes": [
@@ -330,6 +351,7 @@
             "lineColor": "rgb(31, 120, 193)",
             "show": true
           },
+          "tableColumn": "",
           "targets": [
             {
               "expr": "sum(jvm:heap:used)/sum(jvm:heap:max)",
@@ -353,11 +375,15 @@
           "valueName": "current"
         }
       ],
-      "title": "gauges"
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "gauges",
+      "titleSize": "h6"
     },
     {
       "collapse": false,
-      "editable": true,
       "height": "1px",
       "panels": [
         {
@@ -366,7 +392,6 @@
           "error": false,
           "height": "1px",
           "id": 75,
-          "isNew": true,
           "links": [],
           "minSpan": 12,
           "mode": "html",
@@ -376,30 +401,29 @@
           "type": "text"
         }
       ],
-      "title": "GC"
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "GC",
+      "titleSize": "h6"
     },
     {
       "collapse": false,
-      "editable": true,
       "height": "250px",
       "panels": [
         {
           "aliasColors": {},
           "bars": false,
+          "dashLength": 10,
+          "dashes": false,
           "datasource": null,
           "decimals": null,
           "editable": true,
           "error": false,
           "fill": 1,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "thresholdLine": false
-          },
+          "grid": {},
           "id": 59,
-          "isNew": true,
           "legend": {
             "avg": false,
             "current": false,
@@ -419,6 +443,7 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
+          "spaceLength": 10,
           "span": 4,
           "stack": false,
           "steppedLine": false,
@@ -431,6 +456,7 @@
               "step": 2
             }
           ],
+          "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
           "title": "Cycles (Total)",
@@ -442,7 +468,11 @@
           },
           "type": "graph",
           "xaxis": {
-            "show": true
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
           },
           "yaxes": [
             {
@@ -466,20 +496,15 @@
         {
           "aliasColors": {},
           "bars": false,
+          "dashLength": 10,
+          "dashes": false,
           "datasource": null,
           "decimals": null,
           "editable": true,
           "error": false,
           "fill": 1,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "thresholdLine": false
-          },
+          "grid": {},
           "id": 72,
-          "isNew": true,
           "legend": {
             "avg": false,
             "current": false,
@@ -499,6 +524,7 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
+          "spaceLength": 10,
           "span": 4,
           "stack": false,
           "steppedLine": false,
@@ -512,6 +538,7 @@
               "step": 2
             }
           ],
+          "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
           "title": "Cycles (CMS)",
@@ -523,7 +550,11 @@
           },
           "type": "graph",
           "xaxis": {
-            "show": true
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
           },
           "yaxes": [
             {
@@ -547,20 +578,15 @@
         {
           "aliasColors": {},
           "bars": false,
+          "dashLength": 10,
+          "dashes": false,
           "datasource": null,
           "decimals": null,
           "editable": true,
           "error": false,
           "fill": 1,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "thresholdLine": false
-          },
+          "grid": {},
           "id": 74,
-          "isNew": true,
           "legend": {
             "avg": false,
             "current": false,
@@ -580,6 +606,7 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
+          "spaceLength": 10,
           "span": 4,
           "stack": false,
           "steppedLine": false,
@@ -593,6 +620,7 @@
               "step": 2
             }
           ],
+          "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
           "title": "Cycles (ParNew)",
@@ -604,7 +632,11 @@
           },
           "type": "graph",
           "xaxis": {
-            "show": true
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
           },
           "yaxes": [
             {
@@ -626,30 +658,29 @@
           ]
         }
       ],
-      "title": "GC Cycles"
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "GC Cycles",
+      "titleSize": "h6"
     },
     {
       "collapse": false,
-      "editable": true,
       "height": "250px",
       "panels": [
         {
           "aliasColors": {},
           "bars": false,
+          "dashLength": 10,
+          "dashes": false,
           "datasource": null,
           "decimals": null,
           "editable": true,
           "error": false,
           "fill": 1,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "thresholdLine": false
-          },
+          "grid": {},
           "id": 61,
-          "isNew": true,
           "legend": {
             "avg": false,
             "current": false,
@@ -669,6 +700,7 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
+          "spaceLength": 10,
           "span": 4,
           "stack": false,
           "steppedLine": false,
@@ -682,6 +714,7 @@
               "step": 2
             }
           ],
+          "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
           "title": "Time spent (Total)",
@@ -693,7 +726,11 @@
           },
           "type": "graph",
           "xaxis": {
-            "show": true
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
           },
           "yaxes": [
             {
@@ -717,20 +754,15 @@
         {
           "aliasColors": {},
           "bars": false,
+          "dashLength": 10,
+          "dashes": false,
           "datasource": null,
           "decimals": null,
           "editable": true,
           "error": false,
           "fill": 1,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "thresholdLine": false
-          },
+          "grid": {},
           "id": 71,
-          "isNew": true,
           "legend": {
             "avg": false,
             "current": false,
@@ -750,6 +782,7 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
+          "spaceLength": 10,
           "span": 4,
           "stack": false,
           "steppedLine": false,
@@ -763,6 +796,7 @@
               "step": 2
             }
           ],
+          "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
           "title": "Time Spent (CMS)",
@@ -774,7 +808,11 @@
           },
           "type": "graph",
           "xaxis": {
-            "show": true
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
           },
           "yaxes": [
             {
@@ -798,20 +836,15 @@
         {
           "aliasColors": {},
           "bars": false,
+          "dashLength": 10,
+          "dashes": false,
           "datasource": null,
           "decimals": null,
           "editable": true,
           "error": false,
           "fill": 1,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "thresholdLine": false
-          },
+          "grid": {},
           "id": 73,
-          "isNew": true,
           "legend": {
             "avg": false,
             "current": false,
@@ -831,6 +864,7 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
+          "spaceLength": 10,
           "span": 4,
           "stack": false,
           "steppedLine": false,
@@ -844,6 +878,7 @@
               "step": 2
             }
           ],
+          "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
           "title": "Time Spent (ParNew)",
@@ -855,7 +890,11 @@
           },
           "type": "graph",
           "xaxis": {
-            "show": true
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
           },
           "yaxes": [
             {
@@ -877,11 +916,15 @@
           ]
         }
       ],
-      "title": "Time spent in GC"
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Time spent in GC",
+      "titleSize": "h6"
     },
     {
       "collapse": false,
-      "editable": true,
       "height": "1px",
       "panels": [
         {
@@ -890,7 +933,6 @@
           "error": false,
           "height": "1px",
           "id": 68,
-          "isNew": true,
           "links": [],
           "minSpan": 12,
           "mode": "html",
@@ -900,30 +942,29 @@
           "type": "text"
         }
       ],
-      "title": "Memory Usage"
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Memory Usage",
+      "titleSize": "h6"
     },
     {
       "collapse": false,
-      "editable": true,
       "height": "250px",
       "panels": [
         {
           "aliasColors": {},
           "bars": false,
+          "dashLength": 10,
+          "dashes": false,
           "datasource": null,
           "decimals": null,
           "editable": true,
           "error": false,
           "fill": 1,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "thresholdLine": false
-          },
+          "grid": {},
           "id": 65,
-          "isNew": true,
           "legend": {
             "alignAsTable": false,
             "avg": false,
@@ -947,8 +988,8 @@
           "points": false,
           "renderer": "flot",
           "repeatIteration": 1501718943622,
-          "scopedVars": {},
           "seriesOverrides": [],
+          "spaceLength": 10,
           "span": 4,
           "stack": false,
           "steppedLine": false,
@@ -962,6 +1003,7 @@
               "step": 2
             }
           ],
+          "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
           "title": "Eden",
@@ -973,7 +1015,11 @@
           },
           "type": "graph",
           "xaxis": {
-            "show": true
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
           },
           "yaxes": [
             {
@@ -997,20 +1043,15 @@
         {
           "aliasColors": {},
           "bars": false,
+          "dashLength": 10,
+          "dashes": false,
           "datasource": null,
           "decimals": null,
           "editable": true,
           "error": false,
           "fill": 1,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "thresholdLine": false
-          },
+          "grid": {},
           "id": 66,
-          "isNew": true,
           "legend": {
             "alignAsTable": false,
             "avg": false,
@@ -1034,6 +1075,7 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
+          "spaceLength": 10,
           "span": 4,
           "stack": false,
           "steppedLine": false,
@@ -1047,6 +1089,7 @@
               "step": 2
             }
           ],
+          "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
           "title": "Survivor",
@@ -1058,7 +1101,11 @@
           },
           "type": "graph",
           "xaxis": {
-            "show": true
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
           },
           "yaxes": [
             {
@@ -1082,20 +1129,15 @@
         {
           "aliasColors": {},
           "bars": false,
+          "dashLength": 10,
+          "dashes": false,
           "datasource": null,
           "decimals": null,
           "editable": true,
           "error": false,
           "fill": 1,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "thresholdLine": false
-          },
+          "grid": {},
           "id": 67,
-          "isNew": true,
           "legend": {
             "alignAsTable": false,
             "avg": false,
@@ -1119,6 +1161,7 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
+          "spaceLength": 10,
           "span": 4,
           "stack": false,
           "steppedLine": false,
@@ -1132,6 +1175,7 @@
               "step": 2
             }
           ],
+          "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
           "title": "Old Gen",
@@ -1143,7 +1187,11 @@
           },
           "type": "graph",
           "xaxis": {
-            "show": true
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
           },
           "yaxes": [
             {
@@ -1166,19 +1214,14 @@
         }
       ],
       "repeat": null,
-      "scopedVars": {
-        "instance": {
-          "selected": false,
-          "text": "10.0.0.176",
-          "value": "10.0.0.176"
-        }
-      },
+      "repeatIteration": null,
+      "repeatRowId": null,
       "showTitle": false,
-      "title": "GC"
+      "title": "GC",
+      "titleSize": "h6"
     },
     {
       "collapse": false,
-      "editable": true,
       "height": "1px",
       "panels": [
         {
@@ -1187,7 +1230,6 @@
           "error": false,
           "height": "1px",
           "id": 56,
-          "isNew": true,
           "links": [],
           "minSpan": 12,
           "mode": "html",
@@ -1197,30 +1239,29 @@
           "type": "text"
         }
       ],
-      "title": "New row"
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "New row",
+      "titleSize": "h6"
     },
     {
       "collapse": false,
-      "editable": true,
       "height": "250px",
       "panels": [
         {
           "aliasColors": {},
           "bars": false,
+          "dashLength": 10,
+          "dashes": false,
           "datasource": null,
           "decimals": null,
           "editable": true,
           "error": false,
           "fill": 1,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "thresholdLine": false
-          },
+          "grid": {},
           "id": 58,
-          "isNew": true,
           "legend": {
             "avg": false,
             "current": false,
@@ -1240,6 +1281,7 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
+          "spaceLength": 10,
           "span": 4,
           "stack": false,
           "steppedLine": false,
@@ -1252,6 +1294,7 @@
               "step": 2
             }
           ],
+          "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
           "title": "Bytes Used",
@@ -1263,7 +1306,11 @@
           },
           "type": "graph",
           "xaxis": {
-            "show": true
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
           },
           "yaxes": [
             {
@@ -1287,20 +1334,15 @@
         {
           "aliasColors": {},
           "bars": false,
+          "dashLength": 10,
+          "dashes": false,
           "datasource": null,
           "decimals": null,
           "editable": true,
           "error": false,
           "fill": 1,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "thresholdLine": false
-          },
+          "grid": {},
           "id": 69,
-          "isNew": true,
           "legend": {
             "avg": false,
             "current": false,
@@ -1320,6 +1362,7 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
+          "spaceLength": 10,
           "span": 4,
           "stack": false,
           "steppedLine": false,
@@ -1332,6 +1375,7 @@
               "step": 2
             }
           ],
+          "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
           "title": "% Used",
@@ -1343,7 +1387,11 @@
           },
           "type": "graph",
           "xaxis": {
-            "show": true
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
           },
           "yaxes": [
             {
@@ -1367,20 +1415,15 @@
         {
           "aliasColors": {},
           "bars": false,
+          "dashLength": 10,
+          "dashes": false,
           "datasource": null,
           "decimals": null,
           "editable": true,
           "error": false,
           "fill": 1,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "thresholdLine": false
-          },
+          "grid": {},
           "id": 70,
-          "isNew": true,
           "legend": {
             "avg": false,
             "current": false,
@@ -1400,6 +1443,7 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
+          "spaceLength": 10,
           "span": 4,
           "stack": false,
           "steppedLine": false,
@@ -1426,6 +1470,7 @@
               "step": 2
             }
           ],
+          "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
           "title": "GC Pauses (Eden)",
@@ -1437,7 +1482,11 @@
           },
           "type": "graph",
           "xaxis": {
-            "show": true
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
           },
           "yaxes": [
             {
@@ -1459,11 +1508,15 @@
           ]
         }
       ],
-      "title": "New row"
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "New row",
+      "titleSize": "h6"
     },
     {
       "collapse": false,
-      "editable": true,
       "height": "1px",
       "panels": [
         {
@@ -1472,7 +1525,6 @@
           "error": false,
           "height": "1px",
           "id": 33,
-          "isNew": true,
           "links": [],
           "minSpan": 12,
           "mode": "html",
@@ -1482,30 +1534,29 @@
           "type": "text"
         }
       ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
       "showTitle": false,
-      "title": "Performance"
+      "title": "Performance",
+      "titleSize": "h6"
     },
     {
       "collapse": false,
-      "editable": true,
       "height": "250px",
       "panels": [
         {
           "aliasColors": {},
           "bars": false,
+          "dashLength": 10,
+          "dashes": false,
           "datasource": null,
           "decimals": null,
           "editable": true,
           "error": false,
           "fill": 1,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
+          "grid": {},
           "id": 34,
-          "isNew": true,
           "legend": {
             "avg": false,
             "current": false,
@@ -1525,6 +1576,7 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
+          "spaceLength": 10,
           "span": 4,
           "stack": false,
           "steppedLine": false,
@@ -1537,6 +1589,7 @@
               "step": 2
             }
           ],
+          "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
           "title": "Threads",
@@ -1548,7 +1601,11 @@
           },
           "type": "graph",
           "xaxis": {
-            "show": true
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
           },
           "yaxes": [
             {
@@ -1572,20 +1629,15 @@
         {
           "aliasColors": {},
           "bars": false,
+          "dashLength": 10,
+          "dashes": false,
           "datasource": null,
           "decimals": null,
           "editable": true,
           "error": false,
           "fill": 1,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)",
-            "thresholdLine": false
-          },
+          "grid": {},
           "id": 60,
-          "isNew": true,
           "legend": {
             "avg": false,
             "current": false,
@@ -1605,6 +1657,7 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
+          "spaceLength": 10,
           "span": 4,
           "stack": false,
           "steppedLine": false,
@@ -1617,6 +1670,7 @@
               "step": 2
             }
           ],
+          "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
           "title": "File Descriptors",
@@ -1628,7 +1682,11 @@
           },
           "type": "graph",
           "xaxis": {
-            "show": true
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
           },
           "yaxes": [
             {
@@ -1652,19 +1710,15 @@
         {
           "aliasColors": {},
           "bars": false,
+          "dashLength": 10,
+          "dashes": false,
           "datasource": null,
           "decimals": null,
           "editable": true,
           "error": false,
           "fill": 1,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
+          "grid": {},
           "id": 55,
-          "isNew": true,
           "legend": {
             "avg": false,
             "current": false,
@@ -1684,6 +1738,7 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
+          "spaceLength": 10,
           "span": 4,
           "stack": false,
           "steppedLine": false,
@@ -1696,6 +1751,7 @@
               "step": 2
             }
           ],
+          "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
           "title": "Uptime",
@@ -1707,7 +1763,11 @@
           },
           "type": "graph",
           "xaxis": {
-            "show": true
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
           },
           "yaxes": [
             {
@@ -1729,9 +1789,46 @@
           ]
         }
       ],
-      "title": "New row"
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "New row",
+      "titleSize": "h6"
     }
   ],
+  "schemaVersion": 14,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "allValue": null,
+        "current": {
+          "text": "All",
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": "prometheus",
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": true,
+        "name": "instance",
+        "options": [],
+        "query": "label_values(instance)",
+        "refresh": 2,
+        "regex": "",
+        "sort": 1,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
+  },
   "time": {
     "from": "now-5m",
     "to": "now"
@@ -1761,83 +1858,7 @@
       "30d"
     ]
   },
-  "templating": {
-    "list": [
-      {
-        "current": {
-          "value": [
-            "$__all"
-          ],
-          "text": "All"
-        },
-        "datasource": null,
-        "hide": 0,
-        "includeAll": true,
-        "multi": true,
-        "name": "instance",
-        "options": [
-          {
-            "text": "All",
-            "value": "$__all",
-            "selected": true
-          },
-          {
-            "text": "10.0.0.176",
-            "value": "10.0.0.176",
-            "selected": false
-          },
-          {
-            "text": "10.0.0.49",
-            "value": "10.0.0.49",
-            "selected": false
-          },
-          {
-            "text": "10.0.1.223",
-            "value": "10.0.1.223",
-            "selected": false
-          },
-          {
-            "text": "10.0.1.32",
-            "value": "10.0.1.32",
-            "selected": false
-          },
-          {
-            "text": "10.0.2.107",
-            "value": "10.0.2.107",
-            "selected": false
-          },
-          {
-            "text": "10.0.2.171",
-            "value": "10.0.2.171",
-            "selected": false
-          },
-          {
-            "text": "10.0.4.132",
-            "value": "10.0.4.132",
-            "selected": false
-          }
-        ],
-        "query": "label_values(instance)",
-        "refresh": 2,
-        "type": "query"
-      }
-    ]
-  },
-  "annotations": {
-    "list": []
-  },
-  "refresh": "5s",
-  "schemaVersion": 12,
-  "version": 0,
-  "links": [
-    {
-      "icon": "external link",
-      "tags": [],
-      "targetBlank": true,
-      "title": "linkerd.io",
-      "type": "link",
-      "url": "https://linkerd.io"
-    }
-  ],
-  "gnetId": null
+  "timezone": "browser",
+  "title": "linkerd-health",
+  "version": 0
 }

@@ -1,16 +1,36 @@
 {
-  "id": 1,
-  "title": "linkerd-viz",
-  "tags": [],
-  "style": "dark",
-  "timezone": "browser",
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
   "editable": true,
+  "gnetId": null,
+  "graphTooltip": 1,
   "hideControls": false,
-  "sharedCrosshair": true,
+  "id": 1,
+  "links": [
+    {
+      "icon": "external link",
+      "tags": [],
+      "targetBlank": true,
+      "title": "linkerd.io",
+      "type": "link",
+      "url": "https://linkerd.io"
+    }
+  ],
+  "refresh": "5s",
   "rows": [
     {
       "collapse": false,
-      "editable": true,
       "height": "50px",
       "panels": [
         {
@@ -18,7 +38,6 @@
           "editable": true,
           "error": false,
           "id": 20,
-          "isNew": true,
           "links": [],
           "mode": "html",
           "span": 12,
@@ -27,12 +46,15 @@
           "type": "text"
         }
       ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
       "showTitle": false,
-      "title": "title row"
+      "title": "title row",
+      "titleSize": "h6"
     },
     {
       "collapse": false,
-      "editable": true,
       "height": "150px",
       "panels": [
         {
@@ -57,7 +79,6 @@
           },
           "id": 50,
           "interval": null,
-          "isNew": true,
           "links": [],
           "mappingType": 1,
           "mappingTypes": [
@@ -92,6 +113,7 @@
             "lineColor": "rgb(31, 120, 193)",
             "show": false
           },
+          "tableColumn": "",
           "targets": [
             {
               "expr": "count(count(rt:client:requests{rt=\"$router\"}) by (client))",
@@ -136,7 +158,6 @@
           },
           "id": 49,
           "interval": null,
-          "isNew": true,
           "links": [],
           "mappingType": 1,
           "mappingTypes": [
@@ -171,6 +192,7 @@
             "lineColor": "rgb(31, 120, 193)",
             "show": false
           },
+          "tableColumn": "",
           "targets": [
             {
               "expr": "count(count(jvm:uptime) by(instance))",
@@ -217,7 +239,6 @@
           },
           "id": 48,
           "interval": null,
-          "isNew": true,
           "links": [],
           "mappingType": 1,
           "mappingTypes": [
@@ -252,6 +273,7 @@
             "lineColor": "rgb(31, 120, 193)",
             "show": true
           },
+          "tableColumn": "",
           "targets": [
             {
               "expr": "sum(irate(rt:client:success{rt=\"$router\"}[1m])) / sum(irate(rt:client:requests{rt=\"$router\"}[1m]))",
@@ -296,7 +318,6 @@
           },
           "id": 51,
           "interval": null,
-          "isNew": true,
           "links": [],
           "mappingType": 1,
           "mappingTypes": [
@@ -330,6 +351,7 @@
             "lineColor": "rgb(31, 120, 193)",
             "show": true
           },
+          "tableColumn": "",
           "targets": [
             {
               "expr": "sum(irate(rt:client:requests{rt=\"$router\"}[1m]))",
@@ -374,7 +396,6 @@
           },
           "id": 52,
           "interval": null,
-          "isNew": true,
           "links": [],
           "mappingType": 1,
           "mappingTypes": [
@@ -409,6 +430,7 @@
             "lineColor": "rgb(31, 120, 193)",
             "show": true
           },
+          "tableColumn": "",
           "targets": [
             {
               "expr": "sum(irate(rt:client:status:4XX{rt=\"$router\"}[1m]))",
@@ -452,7 +474,6 @@
           },
           "id": 53,
           "interval": null,
-          "isNew": true,
           "links": [],
           "mappingType": 1,
           "mappingTypes": [
@@ -487,6 +508,7 @@
             "lineColor": "rgb(31, 120, 193)",
             "show": true
           },
+          "tableColumn": "",
           "targets": [
             {
               "expr": "sum(irate(rt:client:status:5XX{rt=\"$router\"}[1m]))",
@@ -509,11 +531,15 @@
           "valueName": "current"
         }
       ],
-      "title": "gauges"
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "gauges",
+      "titleSize": "h6"
     },
     {
       "collapse": false,
-      "editable": true,
       "height": "250px",
       "panels": [
         {
@@ -522,7 +548,6 @@
           "error": false,
           "height": "1px",
           "id": 33,
-          "isNew": true,
           "links": [],
           "minSpan": 12,
           "mode": "html",
@@ -534,19 +559,15 @@
         {
           "aliasColors": {},
           "bars": false,
+          "dashLength": 10,
+          "dashes": false,
           "datasource": null,
           "decimals": null,
           "editable": true,
           "error": false,
           "fill": 1,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
+          "grid": {},
           "id": 34,
-          "isNew": true,
           "legend": {
             "avg": false,
             "current": false,
@@ -566,18 +587,21 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
+          "spaceLength": 10,
           "span": 4,
           "stack": false,
           "steppedLine": false,
           "targets": [
             {
               "expr": "round(sum(irate(rt:client:success{rt=\"$router\",client=~\"$service\",instance=~\"$instance\"}[1m])) by (client) / sum(irate(rt:client:requests{rt=\"$router\", client=~\"$service\",instance=~\"$instance\"}[1m])) by (client), .0001)",
+              "format": "time_series",
               "intervalFactor": 2,
+              "legendFormat": "{{client}}",
               "refId": "A",
-              "step": 2,
-              "legendFormat": "{{client}}"
+              "step": 2
             }
           ],
+          "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
           "title": "Success Rates",
@@ -589,7 +613,11 @@
           },
           "type": "graph",
           "xaxis": {
-            "show": true
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
           },
           "yaxes": [
             {
@@ -613,18 +641,14 @@
         {
           "aliasColors": {},
           "bars": false,
+          "dashLength": 10,
+          "dashes": false,
           "datasource": null,
           "editable": true,
           "error": false,
           "fill": 1,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
+          "grid": {},
           "id": 35,
-          "isNew": true,
           "legend": {
             "avg": false,
             "current": false,
@@ -644,6 +668,7 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
+          "spaceLength": 10,
           "span": 4,
           "stack": false,
           "steppedLine": false,
@@ -656,6 +681,7 @@
               "step": 2
             }
           ],
+          "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
           "title": "Request Volumes",
@@ -667,7 +693,11 @@
           },
           "type": "graph",
           "xaxis": {
-            "show": true
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
           },
           "yaxes": [
             {
@@ -691,18 +721,14 @@
         {
           "aliasColors": {},
           "bars": false,
+          "dashLength": 10,
+          "dashes": false,
           "datasource": null,
           "editable": true,
           "error": false,
           "fill": 1,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
+          "grid": {},
           "id": 54,
-          "isNew": true,
           "legend": {
             "alignAsTable": false,
             "avg": false,
@@ -723,6 +749,7 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
+          "spaceLength": 10,
           "span": 4,
           "stack": false,
           "steppedLine": false,
@@ -749,6 +776,7 @@
               "step": 2
             }
           ],
+          "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
           "title": "Latency",
@@ -760,7 +788,11 @@
           },
           "type": "graph",
           "xaxis": {
-            "show": true
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
           },
           "yaxes": [
             {
@@ -782,11 +814,15 @@
           ]
         }
       ],
-      "title": "top line"
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "top line",
+      "titleSize": "h6"
     },
     {
       "collapse": false,
-      "editable": true,
       "height": "1px",
       "panels": [
         {
@@ -795,7 +831,6 @@
           "error": false,
           "height": "1px",
           "id": 12,
-          "isNew": true,
           "links": [],
           "minSpan": 12,
           "mode": "html",
@@ -805,11 +840,15 @@
           "type": "text"
         }
       ],
-      "title": "service metrics"
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "service metrics",
+      "titleSize": "h6"
     },
     {
       "collapse": false,
-      "editable": true,
       "height": "250px",
       "panels": [
         {
@@ -818,18 +857,10 @@
           "error": false,
           "height": "1px",
           "id": 19,
-          "isNew": true,
           "links": [],
           "minSpan": 12,
           "mode": "html",
           "repeatIteration": 1475014386126,
-          "scopedVars": {
-            "service": {
-              "text": "webapp",
-              "value": "webapp",
-              "selected": false
-            }
-          },
           "span": 12,
           "title": "",
           "transparent": true,
@@ -838,19 +869,15 @@
         {
           "aliasColors": {},
           "bars": false,
+          "dashLength": 10,
+          "dashes": false,
           "datasource": null,
           "editable": true,
           "error": false,
           "fill": 1,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
+          "grid": {},
           "height": "250px",
           "id": 3,
-          "isNew": true,
           "legend": {
             "alignAsTable": false,
             "avg": false,
@@ -872,14 +899,8 @@
           "points": false,
           "renderer": "flot",
           "repeatIteration": 1475014386126,
-          "scopedVars": {
-            "service": {
-              "text": "webapp",
-              "value": "webapp",
-              "selected": false
-            }
-          },
           "seriesOverrides": [],
+          "spaceLength": 10,
           "span": 4,
           "stack": false,
           "steppedLine": false,
@@ -887,11 +908,12 @@
             {
               "expr": "round(irate(rt:client:success{rt=\"$router\",client=~\"$service\",instance=~\"$instance\"}[1m]) / irate(rt:client:requests{rt=\"$router\",client=~\"$service\",instance=~\"$instance\"}[1m]), .0001)",
               "intervalFactor": 2,
+              "legendFormat": "{{instance}}",
               "refId": "A",
-              "step": 2,
-              "legendFormat": "{{instance}}"
+              "step": 2
             }
           ],
+          "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
           "title": "Success Rate",
@@ -903,7 +925,11 @@
           },
           "type": "graph",
           "xaxis": {
-            "show": true
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
           },
           "yaxes": [
             {
@@ -927,19 +953,15 @@
         {
           "aliasColors": {},
           "bars": false,
+          "dashLength": 10,
+          "dashes": false,
           "datasource": null,
           "editable": true,
           "error": false,
           "fill": 1,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
+          "grid": {},
           "height": "250px",
           "id": 15,
-          "isNew": true,
           "legend": {
             "avg": false,
             "current": false,
@@ -959,14 +981,8 @@
           "points": false,
           "renderer": "flot",
           "repeatIteration": 1475014386126,
-          "scopedVars": {
-            "service": {
-              "text": "webapp",
-              "value": "webapp",
-              "selected": false
-            }
-          },
           "seriesOverrides": [],
+          "spaceLength": 10,
           "span": 4,
           "stack": false,
           "steppedLine": false,
@@ -979,6 +995,7 @@
               "step": 2
             }
           ],
+          "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
           "title": "Request Volume",
@@ -990,7 +1007,11 @@
           },
           "type": "graph",
           "xaxis": {
-            "show": true
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
           },
           "yaxes": [
             {
@@ -1014,19 +1035,15 @@
         {
           "aliasColors": {},
           "bars": false,
+          "dashLength": 10,
+          "dashes": false,
           "datasource": null,
           "editable": true,
           "error": false,
           "fill": 1,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
+          "grid": {},
           "height": "250px",
           "id": 14,
-          "isNew": true,
           "legend": {
             "avg": false,
             "current": false,
@@ -1046,14 +1063,8 @@
           "points": false,
           "renderer": "flot",
           "repeatIteration": 1475014386126,
-          "scopedVars": {
-            "service": {
-              "text": "webapp",
-              "value": "webapp",
-              "selected": false
-            }
-          },
           "seriesOverrides": [],
+          "spaceLength": 10,
           "span": 4,
           "stack": false,
           "steppedLine": false,
@@ -1080,6 +1091,7 @@
               "step": 2
             }
           ],
+          "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
           "title": "Latency",
@@ -1091,7 +1103,11 @@
           },
           "type": "graph",
           "xaxis": {
-            "show": true
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
           },
           "yaxes": [
             {
@@ -1114,19 +1130,14 @@
         }
       ],
       "repeat": "service",
-      "scopedVars": {
-        "service": {
-          "text": "webapp",
-          "value": "webapp",
-          "selected": false
-        }
-      },
+      "repeatIteration": null,
+      "repeatRowId": null,
       "showTitle": false,
-      "title": "$service"
+      "title": "$service",
+      "titleSize": "h6"
     },
     {
       "collapse": false,
-      "editable": true,
       "height": "250px",
       "panels": [
         {
@@ -1135,7 +1146,6 @@
           "error": false,
           "height": "10px",
           "id": 7,
-          "isNew": true,
           "links": [],
           "mode": "html",
           "span": 12,
@@ -1146,19 +1156,15 @@
         {
           "aliasColors": {},
           "bars": false,
+          "dashLength": 10,
+          "dashes": false,
           "datasource": null,
           "editable": true,
           "error": false,
           "fill": 1,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
+          "grid": {},
           "height": "250px",
           "id": 10,
-          "isNew": true,
           "legend": {
             "avg": false,
             "current": false,
@@ -1178,6 +1184,7 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
+          "spaceLength": 10,
           "span": 4,
           "stack": false,
           "steppedLine": false,
@@ -1190,6 +1197,7 @@
               "step": 2
             }
           ],
+          "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
           "title": "Success Rate",
@@ -1201,7 +1209,11 @@
           },
           "type": "graph",
           "xaxis": {
-            "show": true
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
           },
           "yaxes": [
             {
@@ -1225,19 +1237,15 @@
         {
           "aliasColors": {},
           "bars": false,
+          "dashLength": 10,
+          "dashes": false,
           "datasource": null,
           "editable": true,
           "error": false,
           "fill": 1,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
+          "grid": {},
           "height": "250px",
           "id": 11,
-          "isNew": true,
           "legend": {
             "avg": false,
             "current": false,
@@ -1257,6 +1265,7 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
+          "spaceLength": 10,
           "span": 4,
           "stack": false,
           "steppedLine": false,
@@ -1269,6 +1278,7 @@
               "step": 2
             }
           ],
+          "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
           "title": "Request Volume",
@@ -1280,7 +1290,11 @@
           },
           "type": "graph",
           "xaxis": {
-            "show": true
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
           },
           "yaxes": [
             {
@@ -1304,19 +1318,15 @@
         {
           "aliasColors": {},
           "bars": false,
+          "dashLength": 10,
+          "dashes": false,
           "datasource": null,
           "editable": true,
           "error": false,
           "fill": 1,
-          "grid": {
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
+          "grid": {},
           "height": "250px",
           "id": 8,
-          "isNew": true,
           "legend": {
             "avg": false,
             "current": false,
@@ -1336,6 +1346,7 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
+          "spaceLength": 10,
           "span": 4,
           "stack": false,
           "steppedLine": false,
@@ -1364,6 +1375,7 @@
               "step": 2
             }
           ],
+          "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
           "title": "Latency",
@@ -1375,7 +1387,11 @@
           },
           "type": "graph",
           "xaxis": {
-            "show": true
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
           },
           "yaxes": [
             {
@@ -1398,10 +1414,94 @@
         }
       ],
       "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
       "showTitle": false,
-      "title": "per linkerd metrics"
+      "title": "per linkerd metrics",
+      "titleSize": "h6"
     }
   ],
+  "schemaVersion": 14,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "allValue": null,
+        "current": {
+          "isNone": true,
+          "text": "None",
+          "value": ""
+        },
+        "datasource": "prometheus",
+        "hide": 0,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "router",
+        "options": [],
+        "query": "label_values(rt)",
+        "refresh": 2,
+        "regex": "",
+        "sort": 1,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "text": "All",
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": "prometheus",
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": true,
+        "name": "service",
+        "options": [],
+        "query": "label_values(client)",
+        "refresh": 2,
+        "regex": "",
+        "sort": 1,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "text": "All",
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": "prometheus",
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": true,
+        "name": "instance",
+        "options": [],
+        "query": "label_values(instance)",
+        "refresh": 2,
+        "regex": "",
+        "sort": 1,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
+  },
   "time": {
     "from": "now-5m",
     "to": "now"
@@ -1431,106 +1531,7 @@
       "30d"
     ]
   },
-  "templating": {
-    "list": [
-      {
-        "type": "query",
-        "datasource": null,
-        "refresh": 2,
-        "name": "router",
-        "hide": 0,
-        "options": [
-          {
-            "text": "incoming",
-            "value": "incoming",
-            "selected": true
-          }
-        ],
-        "includeAll": false,
-        "multi": false,
-        "query": "label_values(rt)",
-        "current": {
-          "text": "incoming",
-          "value": "incoming"
-        },
-        "regex": ""
-      },
-      {
-        "current": {
-          "value": [
-            "$__all"
-          ],
-          "text": "All"
-        },
-        "datasource": null,
-        "hide": 0,
-        "includeAll": true,
-        "multi": true,
-        "name": "service",
-        "options": [
-          {
-            "text": "All",
-            "value": "$__all",
-            "selected": true
-          },
-          {
-            "text": "webapp",
-            "value": "webapp",
-            "selected": false
-          }
-        ],
-        "query": "label_values(client)",
-        "refresh": 2,
-        "regex": "",
-        "tagsQuery": "",
-        "type": "query",
-        "useTags": false
-      },
-      {
-        "current": {
-          "value": [
-            "$__all"
-          ],
-          "text": "All"
-        },
-        "datasource": null,
-        "hide": 0,
-        "includeAll": true,
-        "multi": true,
-        "name": "instance",
-        "options": [
-          {
-            "text": "All",
-            "value": "$__all",
-            "selected": true
-          },
-          {
-            "text": "10.0.3.197",
-            "value": "10.0.3.197",
-            "selected": false
-          }
-        ],
-        "query": "label_values(instance)",
-        "refresh": 2,
-        "type": "query"
-      }
-    ]
-  },
-  "annotations": {
-    "list": []
-  },
-  "refresh": "5s",
-  "schemaVersion": 12,
-  "version": 24,
-  "links": [
-    {
-      "icon": "external link",
-      "tags": [],
-      "targetBlank": true,
-      "title": "linkerd.io",
-      "type": "link",
-      "url": "https://linkerd.io"
-    }
-  ],
-  "gnetId": null
+  "timezone": "browser",
+  "title": "linkerd-viz",
+  "version": 24
 }

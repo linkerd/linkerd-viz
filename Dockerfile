@@ -1,9 +1,9 @@
-FROM grafana/grafana:3.1.1
+FROM grafana/grafana:4.6.2
 MAINTAINER  Buoyant, Inc. <hello@buoyant.io>
 
 EXPOSE 3000 9191
 
-ARG prometheus_version=1.7.0
+ARG prometheus_version=1.8.2
 ARG prometheus_archive_name=prometheus-$prometheus_version.linux-amd64
 
 RUN apt-get update                                       && \
@@ -16,7 +16,7 @@ RUN mkdir -p /etc/prometheus
 
 # prometheus setup
 
-RUN wget https://github.com/prometheus/prometheus/releases/download/v$prometheus_version/$prometheus_archive_name.tar.gz && \
+RUN wget -O $prometheus_archive_name.tar.gz https://github.com/prometheus/prometheus/releases/download/v$prometheus_version/$prometheus_archive_name.tar.gz && \
     tar -xf /$prometheus_archive_name.tar.gz                                                               && \
     cp      /$prometheus_archive_name/prometheus        /bin/                                              && \
     cp      /$prometheus_archive_name/promtool          /bin/                                              && \
