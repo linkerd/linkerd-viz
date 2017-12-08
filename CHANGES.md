@@ -1,5 +1,11 @@
 ## In the next release
 
+## 0.1.7 2017-12-08
+
+* Updated Prometheus to 1.8.2
+* Updated Grafana to 4.6.2
+* Changed anonymous Grafana user's org role from Admin to Editor
+
 ## 0.1.6 2017-10-17
 
 * Update Prometheus version from 1.4.1 to 1.7.0

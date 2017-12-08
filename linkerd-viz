@@ -22,7 +22,7 @@ SCRAPE_INTERVAL="${SCRAPE_INTERVAL:-30s}"
 grafana_ini=$(cat <<EOF
 [auth.anonymous]
 enabled = true
-org_role = Admin
+org_role = Editor
 
 [dashboards.json]
 enabled = true
@@ -41,7 +41,7 @@ prometheus_data_source=$(cat <<EOF
 {
   "access": "proxy",
   "isDefault": true,
-  "jsonData": {},
+  "jsonData": {"timeInterval": "$SCRAPE_INTERVAL"},
   "name": "prometheus",
   "type": "prometheus",
   "url": "http://localhost:$STATS_PORT"
@@ -49,12 +49,12 @@ prometheus_data_source=$(cat <<EOF
 EOF
 )
 
-until $(curl -sfo /dev/null http://localhost:$PUBLIC_PORT/api/datasources); do
+until $(curl -sfo /dev/null http://admin:admin@localhost:$PUBLIC_PORT/api/datasources); do
   # wait for grafana to boot
   sleep 1
 done
-curl -vX POST -d "${prometheus_data_source}" -H "Content-Type: application/json" http://localhost:$PUBLIC_PORT/api/datasources
-curl -vX PUT -d"{\"theme\": \"dark\"}" -H "Content-Type: application/json" http://localhost:$PUBLIC_PORT/api/org/preferences
+curl -vX POST -d "${prometheus_data_source}" -H "Content-Type: application/json" http://admin:admin@localhost:$PUBLIC_PORT/api/datasources
+curl -vX PUT -d"{\"theme\": \"dark\"}" -H "Content-Type: application/json" http://admin:admin@localhost:$PUBLIC_PORT/api/org/preferences
 
 #
 # init prometheus, exec as pid 1
