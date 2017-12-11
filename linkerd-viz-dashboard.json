@@ -1,4 +1,30 @@
 {
+  "__requires": [
+    {
+      "type": "panel",
+      "id": "graph",
+      "name": "Graph",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "singlestat",
+      "name": "Singlestat",
+      "version": ""
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "3.1.1"
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    }
+  ],
   "annotations": {
     "list": [
       {
@@ -219,7 +245,7 @@
         {
           "cacheTimeout": null,
           "colorBackground": false,
-          "colorValue": false,
+          "colorValue": true,
           "colors": [
             "rgba(245, 54, 54, 0.9)",
             "rgba(237, 129, 40, 0.89)",
@@ -277,13 +303,14 @@
           "targets": [
             {
               "expr": "sum(irate(rt:client:success{rt=\"$router\"}[1m])) / sum(irate(rt:client:requests{rt=\"$router\"}[1m]))",
+              "format": "time_series",
               "intervalFactor": 2,
               "legendFormat": "",
               "refId": "A",
               "step": 4
             }
           ],
-          "thresholds": "",
+          "thresholds": ".5,.8",
           "title": "Global Success Rate",
           "type": "singlestat",
           "valueFontSize": "80%",
