@@ -1,5 +1,8 @@
 ## In the next release
 
+* Changed Grafana `intervalFactor` from `1/2` to `1/1`
+* Fixed Global Success Rate gauge thresholds
+
 ## 0.1.7 2017-12-08
 
 * Updated Prometheus to 1.8.2

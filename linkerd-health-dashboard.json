@@ -143,7 +143,7 @@
           "targets": [
             {
               "expr": "count(count(jvm:uptime) by(instance))",
-              "intervalFactor": 2,
+              "intervalFactor": 1,
               "legendFormat": "",
               "refId": "A",
               "step": 4
@@ -223,7 +223,7 @@
           "targets": [
             {
               "expr": "avg(jvm:uptime)",
-              "intervalFactor": 2,
+              "intervalFactor": 1,
               "legendFormat": "",
               "refId": "A",
               "step": 4
@@ -302,7 +302,7 @@
           "targets": [
             {
               "expr": "sum(jvm:num_cpus)",
-              "intervalFactor": 2,
+              "intervalFactor": 1,
               "legendFormat": "",
               "refId": "A",
               "step": 4
@@ -382,7 +382,7 @@
             {
               "expr": "sum(jvm:heap:used)/sum(jvm:heap:max)",
               "format": "time_series",
-              "intervalFactor": 2,
+              "intervalFactor": 1,
               "legendFormat": "",
               "refId": "A",
               "step": 4
@@ -477,7 +477,7 @@
           "targets": [
             {
               "expr": "irate(jvm:gc:cycles{instance=~\"$instance\"}[1m])",
-              "intervalFactor": 2,
+              "intervalFactor": 1,
               "legendFormat": "{{instance}}",
               "refId": "A",
               "step": 2
@@ -558,7 +558,7 @@
           "targets": [
             {
               "expr": "irate(jvm:gc:ConcurrentMarkSweep:cycles{instance=~\"$instance\"}[1m])",
-              "intervalFactor": 2,
+              "intervalFactor": 1,
               "legendFormat": "{{instance}}",
               "metric": "",
               "refId": "A",
@@ -640,7 +640,7 @@
           "targets": [
             {
               "expr": "irate(jvm:gc:ParNew:cycles{instance=~\"$instance\"}[1m])",
-              "intervalFactor": 2,
+              "intervalFactor": 1,
               "legendFormat": "{{instance}}",
               "metric": "",
               "refId": "A",
@@ -734,7 +734,7 @@
           "targets": [
             {
               "expr": "irate(jvm:gc:msec{instance=~\"$instance\"}[1m])",
-              "intervalFactor": 2,
+              "intervalFactor": 1,
               "legendFormat": "{{instance}}",
               "metric": "",
               "refId": "A",
@@ -816,7 +816,7 @@
           "targets": [
             {
               "expr": "irate(jvm:gc:ConcurrentMarkSweep:msec{instance=~\"$instance\"}[1m])",
-              "intervalFactor": 2,
+              "intervalFactor": 1,
               "legendFormat": "{{instance}}",
               "metric": "",
               "refId": "A",
@@ -898,7 +898,7 @@
           "targets": [
             {
               "expr": "irate(jvm:gc:ParNew:msec{instance=~\"$instance\"}[1m])",
-              "intervalFactor": 2,
+              "intervalFactor": 1,
               "legendFormat": "{{instance}}",
               "metric": "",
               "refId": "A",
@@ -1023,7 +1023,7 @@
           "targets": [
             {
               "expr": "jvm:mem:current:Par_Eden_Space:used{instance=~\"$instance\"}",
-              "intervalFactor": 2,
+              "intervalFactor": 1,
               "legendFormat": "{{instance}}",
               "metric": "",
               "refId": "A",
@@ -1109,7 +1109,7 @@
           "targets": [
             {
               "expr": "jvm:mem:current:Par_Survivor_Space:used{instance=~\"$instance\"}",
-              "intervalFactor": 2,
+              "intervalFactor": 1,
               "legendFormat": "{{instance}}",
               "metric": "",
               "refId": "A",
@@ -1195,7 +1195,7 @@
           "targets": [
             {
               "expr": "jvm:mem:current:CMS_Old_Gen:used{instance=~\"$instance\"}",
-              "intervalFactor": 2,
+              "intervalFactor": 1,
               "legendFormat": "{{instance}}",
               "metric": "",
               "refId": "A",
@@ -1315,7 +1315,7 @@
           "targets": [
             {
               "expr": "jvm:heap:used{instance=~\"$instance\"}",
-              "intervalFactor": 2,
+              "intervalFactor": 1,
               "legendFormat": "{{instance}}",
               "refId": "A",
               "step": 2
@@ -1396,7 +1396,7 @@
           "targets": [
             {
               "expr": "jvm:heap:used{instance=~\"$instance\"} / jvm:heap:max{instance=~\"$instance\"}",
-              "intervalFactor": 2,
+              "intervalFactor": 1,
               "legendFormat": "{{instance}}",
               "refId": "A",
               "step": 2
@@ -1477,21 +1477,21 @@
           "targets": [
             {
               "expr": "jvm:gc:eden:pause_msec{quantile=\"0.5\",instance=~\"$instance\"}",
-              "intervalFactor": 2,
+              "intervalFactor": 1,
               "legendFormat": "p50 {{instance}}",
               "refId": "A",
               "step": 2
             },
             {
               "expr": "jvm:gc:eden:pause_msec{quantile=\"0.9\",instance=~\"$instance\"}",
-              "intervalFactor": 2,
+              "intervalFactor": 1,
               "legendFormat": "p99 {{instance}}",
               "refId": "B",
               "step": 2
             },
             {
               "expr": "jvm:gc:eden:pause_msec{quantile=\"0.99\",instance=~\"$instance\"}",
-              "intervalFactor": 2,
+              "intervalFactor": 1,
               "legendFormat": "p99 {{instance}}",
               "refId": "C",
               "step": 2
@@ -1610,7 +1610,7 @@
           "targets": [
             {
               "expr": "jvm:thread:count{instance=~\"$instance\"}",
-              "intervalFactor": 2,
+              "intervalFactor": 1,
               "legendFormat": "{{instance}}",
               "refId": "A",
               "step": 2
@@ -1691,7 +1691,7 @@
           "targets": [
             {
               "expr": "jvm:fd_count{instance=~\"$instance\"}",
-              "intervalFactor": 2,
+              "intervalFactor": 1,
               "legendFormat": "{{instance}}",
               "refId": "A",
               "step": 2
@@ -1772,7 +1772,7 @@
           "targets": [
             {
               "expr": "jvm:uptime{instance=~\"$instance\"}",
-              "intervalFactor": 2,
+              "intervalFactor": 1,
               "legendFormat": "{{instance}}",
               "refId": "A",
               "step": 2
