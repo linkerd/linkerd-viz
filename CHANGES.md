@@ -1,5 +1,8 @@
 ## In the next release
 
+## 0.1.8 2018-03-02
+
+* Fixed `CONSUL_HOSTS` and `MARATHON_HOST` not being honored. Thanks to [@eentzel](https://github.com/eentzel)!
 * Changed Grafana `intervalFactor` from `1/2` to `1/1`
 * Fixed Global Success Rate gauge thresholds
 
