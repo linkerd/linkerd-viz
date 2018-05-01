@@ -11,6 +11,7 @@ PLATFORM="${1:-dcos}"
 
 CONSUL_HOST="${CONSUL_HOST:-localhost}"
 MARATHON_HOST="${MARATHON_HOST:-mesos.marathon}"
+MARATHON_PORT="${MARATHON_PORT:-8080}"
 PUBLIC_PORT="${PUBLIC_PORT:-3000}"
 STATS_PORT="${STATS_PORT:-9191}"
 SCRAPE_INTERVAL="${SCRAPE_INTERVAL:-30s}"
@@ -64,7 +65,7 @@ curl -vX PUT -d"{\"theme\": \"dark\"}" -H "Content-Type: application/json" http:
 PROMETHEUS_CONF=/etc/prometheus/prometheus-$PLATFORM.yml
 
 sed -i"" "s@- server:   'localhost:8500'@- server:   '$CONSUL_HOST:8500'@" $PROMETHEUS_CONF
-sed -i"" "s@- 'http://marathon.mesos:8080'@- 'http://$MARATHON_HOST:8080'@" $PROMETHEUS_CONF
+sed -i"" "s@- 'http://marathon.mesos:8080'@- 'http://$MARATHON_HOST:$MARATHON_PORT'@" $PROMETHEUS_CONF
 sed -i"" "s@scrape_interval:.*@scrape_interval: $SCRAPE_INTERVAL@" $PROMETHEUS_CONF
 sed -i"" "s@evaluation_interval:.*@evaluation_interval: $SCRAPE_INTERVAL@" $PROMETHEUS_CONF
 
