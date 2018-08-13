@@ -20,13 +20,20 @@ SCRAPE_INTERVAL="${SCRAPE_INTERVAL:-30s}"
 #
 
 grafana_ini=$(cat <<EOF
+instance_name = linkerd-viz-grafana
+
+[analytics]
+check_for_updates = false
+
+[auth]
+disable_login_form = true
+
 [auth.anonymous]
 enabled = true
 org_role = Editor
 
-[dashboards.json]
-enabled = true
-path = /etc/grafana/dashboards
+[auth.basic]
+enabled = false
 
 [server]
 http_port = $PUBLIC_PORT
@@ -35,26 +42,25 @@ EOF
 
 printf "%s\n" "$grafana_ini" > /etc/grafana/grafana.ini
 
-/run.sh &
-
 prometheus_data_source=$(cat <<EOF
-{
-  "access": "proxy",
-  "isDefault": true,
-  "jsonData": {"timeInterval": "$SCRAPE_INTERVAL"},
-  "name": "prometheus",
-  "type": "prometheus",
-  "url": "http://localhost:$STATS_PORT"
-}
+apiVersion: 1
+datasources:
+- name: prometheus
+  type: prometheus
+  access: proxy
+  orgId: 1
+  url: http://localhost:$STATS_PORT
+  isDefault: true
+  jsonData:
+    timeInterval: "$SCRAPE_INTERVAL"
+  version: 1
+  editable: true
 EOF
 )
 
-until $(curl -sfo /dev/null http://admin:admin@localhost:$PUBLIC_PORT/api/datasources); do
-  # wait for grafana to boot
-  sleep 1
-done
-curl -vX POST -d "${prometheus_data_source}" -H "Content-Type: application/json" http://admin:admin@localhost:$PUBLIC_PORT/api/datasources
-curl -vX PUT -d"{\"theme\": \"dark\"}" -H "Content-Type: application/json" http://admin:admin@localhost:$PUBLIC_PORT/api/org/preferences
+printf "%s\n" "$prometheus_data_source" > $GF_PATHS_PROVISIONING/datasources/datasources.yaml
+
+/run.sh &
 
 #
 # init prometheus, exec as pid 1
@@ -69,8 +75,8 @@ sed -i"" "s@scrape_interval:.*@scrape_interval: $SCRAPE_INTERVAL@" $PROMETHEUS_C
 sed -i"" "s@evaluation_interval:.*@evaluation_interval: $SCRAPE_INTERVAL@" $PROMETHEUS_CONF
 
 exec /bin/prometheus \
-  -config.file=$PROMETHEUS_CONF \
-  -storage.local.path=/prometheus \
-  -web.console.libraries=/etc/prometheus/console_libraries \
-  -web.console.templates=/etc/prometheus/consoles \
-  -web.listen-address=:$STATS_PORT
+  --config.file=$PROMETHEUS_CONF \
+  --storage.tsdb.path=/prometheus \
+  --web.console.libraries=/etc/prometheus/console_libraries \
+  --web.console.templates=/etc/prometheus/consoles \
+  --web.listen-address=:$STATS_PORT
