@@ -1,5 +1,11 @@
 ## In the next release
 
+* Updated Prometheus to 2.3.2
+* Updated Grafana to 5.2.2
+* Modify Dockerfile and entrypoint script to leverage Grafana's dashboard and
+  datasource provisioning.
+* Kubernetes config updates
+
 ## 0.1.8 2018-03-02
 
 * Fixed `CONSUL_HOSTS` and `MARATHON_HOST` not being honored. Thanks to [@eentzel](https://github.com/eentzel)!
