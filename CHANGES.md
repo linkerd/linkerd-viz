@@ -1,11 +1,14 @@
 ## In the next release
 
+## 0.2.0 2018-08-13
+
 * Updated Prometheus to 2.3.2
 * Updated Grafana to 5.2.2
 * Modify Dockerfile and entrypoint script to leverage Grafana's dashboard and
   datasource provisioning
 * Update dashboards to leverage Grafana's latest features
 * Kubernetes config updates
+* Fix default value of `MARATHON_HOST`
 
 ## 0.1.8 2018-03-02
 
