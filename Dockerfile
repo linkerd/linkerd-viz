@@ -10,6 +10,7 @@ ARG prometheus_version=2.3.2
 ARG prometheus_archive_name=prometheus-$prometheus_version.linux-amd64
 
 RUN mkdir -p /etc/prometheus
+RUN apt-get update && apt-get install -y --no-install-recommends dos2unix 
 
 # prometheus setup
 RUN curl -L -o $prometheus_archive_name.tar.gz https://github.com/prometheus/prometheus/releases/download/v$prometheus_version/$prometheus_archive_name.tar.gz && \
@@ -27,4 +28,5 @@ COPY grafana/dashboards.yaml                       $GF_PATHS_PROVISIONING/dashbo
 COPY grafana/dashboards/*                          $GF_PATHS_PROVISIONING/dashboards/
 COPY grafana/dashboards/linkerd-viz-dashboard.json $GF_PATHS_HOME/public/dashboards/home.json
 
+RUN dos2unix /linkerd-viz
 ENTRYPOINT [ "/linkerd-viz" ]
