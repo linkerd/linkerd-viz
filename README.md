@@ -1,5 +1,10 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/buoyantio/linkerd-viz.svg)](https://hub.docker.com/r/buoyantio/linkerd-viz/)
 
+# Upgrade Notice
+
+This repo is for Linkerd 1. For instructions on setting up the Linkerd 2 viz
+extension, see the [Linkerd 2 documentation](https://linkerd.io/docs/).
+
 # linkerd-viz
 
 Dead simple monitoring for [linkerd](https://linkerd.io).
