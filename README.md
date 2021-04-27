@@ -3,7 +3,7 @@
 # Upgrade Notice
 
 This repo is for Linkerd 1. For instructions on setting up the Linkerd 2 viz
-extension, see the [Linkerd 2 documentation](https://linkerd.io/docs/).
+extension, see the [Linkerd 2 documentation](https://linkerd.io/2/tasks/extensions/).
 
 # linkerd-viz
 
